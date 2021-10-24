@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 
 
-class DrawerItemModel {
+class DrawerItem {
   final String name;
   final IconData icon;
   final Function onTap;
 
-  DrawerItemModel({
+  DrawerItem({
     required this.name, required this.icon, 
     required this.onTap,
   });

@@ -2,11 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:desktop_window/desktop_window.dart';
 
 import 'package:password_manager/screens/home_page.dart';
+import 'package:password_manager/themes/custom_colors.dart';
 
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await DesktopWindow.setMaxWindowSize(Size(800, 800));
+  await DesktopWindow.setMinWindowSize(Size(800, 700));
 
   runApp(MyApp());
 }
@@ -19,8 +20,9 @@ class MyApp extends StatelessWidget {
       title: 'Key Vault',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        fontFamily: "Noto_Sans",
-        primarySwatch: Colors.blue,
+        fontFamily: "Open_Sans",
+        primaryColor: CustomColors.primaryLight,
+        scaffoldBackgroundColor: CustomColors.backgroundColorWhite,
       ),
       home: HomePage(title: 'Password Manager'),
     );

@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:password_manager/themes/custom_text_style.dart';
 
 import 'package:password_manager/widgets/avatar_widget.dart';
 import 'package:password_manager/themes/custom_icons.dart';
-import 'package:password_manager/widgets/drawer_item.dart';
+import 'package:password_manager/widgets/drawer_item_widget.dart';
 
 import 'package:password_manager/models/app_data.dart';
-import 'package:password_manager/models/drawer_item_model.dart';
+import 'package:password_manager/models/drawer_item.dart';
 
 
 class DrawerWidget extends StatefulWidget {
@@ -39,7 +38,9 @@ class _DrawerWidgetState extends State<DrawerWidget> {
                       children: <Widget>[
                         Text(
                           "Rose Poole",
-                          style: CustomTextStyle.subTitle(),
+                          style: TextStyle(
+                            fontSize: 18.0,
+                          ),
                         ),
                         Text(
                           "rosepoole@gmail.com",
@@ -55,20 +56,20 @@ class _DrawerWidgetState extends State<DrawerWidget> {
               child: ListView.builder(
                 itemCount: drawerItems.length,
                 itemBuilder: (BuildContext context, int index) {
-                  DrawerItemModel drawerItem = drawerItems[index];
+                  DrawerItem drawerItem = drawerItems[index];
 
-                  return DrawerItem(
+                  return DrawerItemWidget(
                     iconData: drawerItem.icon, 
                     name: drawerItem.name,
                     onTap: drawerItem.onTap,
                   );
               }),
             ),
-            DrawerItem(
+            DrawerItemWidget(
               iconData: CustomIcons.logout, 
               name: "Logout",
               onTap: () {
-                print("Logout drawer-item was clicked");
+                print("logout drawer item was clicked");
               },
             ),
           ],

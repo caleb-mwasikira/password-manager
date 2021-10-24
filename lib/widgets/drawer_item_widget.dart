@@ -2,22 +2,22 @@ import 'package:flutter/material.dart';
 
 
 // ignore: must_be_immutable
-class DrawerItem extends StatefulWidget {
+class DrawerItemWidget extends StatefulWidget {
   final IconData iconData;
   final String name;
   final Function onTap;
 
-  DrawerItem({ 
+  DrawerItemWidget({ 
     Key? key, 
     required this.iconData, required this.name,
     required this.onTap,
     }) : super(key: key);
 
   @override
-  _DrawerItemState createState() => _DrawerItemState();
+  _DrawerItemWidgetState createState() => _DrawerItemWidgetState();
 }
 
-class _DrawerItemState extends State<DrawerItem> {
+class _DrawerItemWidgetState extends State<DrawerItemWidget> {
   bool onHover = false;
 
   @override

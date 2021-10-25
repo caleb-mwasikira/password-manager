@@ -20,8 +20,8 @@ class VaultDetails extends StatelessWidget {
               height: 200.0,
               padding: EdgeInsets.all(20.0),
               decoration: BoxDecoration(
-                color: Colors.lightBlue,
-                borderRadius: BorderRadius.circular(20.0),
+                color: Colors.lightBlueAccent,
+                borderRadius: BorderRadius.circular(5.0),
               ),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,

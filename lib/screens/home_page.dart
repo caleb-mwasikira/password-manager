@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:password_manager/models/vault_account.dart';
 import 'package:password_manager/widgets/appbar_widget.dart';
 
 import 'package:password_manager/widgets/drawer_widget.dart';

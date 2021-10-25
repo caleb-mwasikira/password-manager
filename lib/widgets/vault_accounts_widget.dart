@@ -41,27 +41,28 @@ class _VaultAccountsWidgetState extends State<VaultAccountsWidget> {
       child: Container(
         padding: EdgeInsets.all(20.0),
         child: FutureBuilder<List<VaultAccount>>(
-                    future: _vaultAccounts,
-                    builder: (context, snapshot) {
-                      if (snapshot.hasData) {
-                        List<VaultAccount> vaultAccounts = snapshot.data!;
+          future: _vaultAccounts,
+          builder: (context, snapshot) {
+            if (snapshot.hasData) {
+              List<VaultAccount> vaultAccounts = snapshot.data!;
 
-                        return ListView.builder(
-                                  itemCount: vaultAccounts.length,
-                                  itemBuilder: (BuildContext context, int index) {
-                                    return VaultAccountWidget(
-                                      vaultAccount: vaultAccounts[index]
-                                    );
-                                });
-                                
-                      } else if (snapshot.hasError) {
-                        return Text('${snapshot.error}');
-                      }
+              return ListView.builder(
+                        itemCount: vaultAccounts.length,
+                        cacheExtent: 800.0,
+                        itemBuilder: (BuildContext context, int index) {
+                          return VaultAccountWidget(
+                            vaultAccount: vaultAccounts[index]
+                          );
+                      });
+                      
+            } else if (snapshot.hasError) {
+              return Text('${snapshot.error}');
+            }
 
-                      // By default, show a loading spinner.
-                      return const CircularProgressIndicator();
-                    },
-                  ),
+            // By default, show a loading spinner.
+            return const CircularProgressIndicator();
+          },
+        ),
       ),
     );
   }

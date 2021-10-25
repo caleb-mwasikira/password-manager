@@ -12,7 +12,7 @@ class VaultAccount {
   String email;
   Map<String, dynamic> password;
   List vault;
-  String? url;
+  String url;
   String createdAt;
   String? expiresAt;
 
@@ -23,7 +23,7 @@ class VaultAccount {
     required this.email,
     required this.password,
     required this.vault,
-    this.url,
+    this.url = '',
     required this.createdAt,
     this.expiresAt,
   });

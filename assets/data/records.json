@@ -1,0 +1,125 @@
+[
+    {
+        "id": "1197f223-613d-4327-a768-73918987697c",
+        "record_type": "AUTH",
+        "key_id": "9d60500f-3257-43dd-aa38-33146493c9dd",
+        "category": {
+            "name": "SCHOOL",
+            "img_url": "http://dummyimage.com/151x100.png/cc0000/ffffff"
+        },
+        "groups": ["USER"],
+        "user_id": "9d60500f-3257-43dd-aa38-33146493c9dd",
+        "encryption_type": "RSA",
+        "created_at": "2021-05-23T18:31:06Z",
+        "expires_at": "2021-06-26T01:54:46Z",
+        "website_url": "http://google.com",
+        "email": "hblum0@yale.edu",
+        "password": "1f15b60bc12b5c2e01"
+    },
+    {
+        "id": "cbf4e576-d0f3-406a-bd7a-dededde498ef",
+        "record_type": "AUTH",
+        "key_id": "ee2b1929-0b0b-4e95-b40e-5e194a0c34c9",
+        "category": {
+            "name": "BANKING",
+            "img_url": "http://dummyimage.com/136x100.png/dddddd/000000"
+        },
+        "groups": ["ADMIN"],
+        "user_id": "ee2b1929-0b0b-4e95-b40e-5e194a0c34c9",
+        "encryption_type": "RSA",
+        "created_at": "2021-05-23T18:31:06Z",
+        "expires_at": "2021-06-26T01:54:46Z",
+        "website_url": "https://facebook.com",
+        "email": "jliger1@smh.com.au",
+        "password": "df37ddba972233855c"
+    },
+    {
+        "id": "ea3f9c94-d4a1-4634-932d-6e24c1d26b39",
+        "record_type": "AUTH",
+        "key_id": "0081e63f-6b78-44c8-a24a-a4600a5fa1ca",
+        "category": {
+            "name": "ENTERTAINMENT",
+            "img_url": "http://dummyimage.com/212x100.png/cc0000/ffffff"
+        },
+        "groups": ["ADMIN"],
+        "user_id": "0081e63f-6b78-44c8-a24a-a4600a5fa1ca",
+        "encryption_type": "RSA",
+        "created_at": "2021-05-23T18:31:06Z",
+        "expires_at": "2021-06-26T01:54:46Z",
+        "website_url": "http://kaggle.com",
+        "email": "njorioz2@techcrunch.com",
+        "password": "04044142b04aaed02d"
+    },
+    {
+        "id": "4b771a56-1498-4fd5-9f93-4577ef2dae4b",
+        "record_type": "FILES",
+        "key_id": "903e1c08-7535-4373-b5fa-2610ca36ef1e",
+        "category": {
+            "name": "WALLET",
+            "img_url": "http://dummyimage.com/119x100.png/ff4444/ffffff"
+        },
+        "groups": ["USER"],
+        "user_id": "903e1c08-7535-4373-b5fa-2610ca36ef1e",
+        "encryption_type": "AES_256",
+        "created_at": "2021-05-23T18:31:06Z",
+        "expires_at": "2021-06-26T01:54:46Z",
+        "file_name": "SedLacus.avi",
+        "file_size": "10KB",
+        "file_desc": "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.",
+        "file_contents": "Replacement of stent (tube) in biliary or pancreatic duct"
+    },
+    {
+        "id": "4b9ac672-6403-4d00-adc5-eb9e0563332c",
+        "record_type": "FILES",
+        "key_id": "03932786-2f69-43fa-99af-39d70bbd9b25",
+        "category": {
+            "name": "SCHOOL",
+            "img_url": "http://dummyimage.com/214x100.png/5fa2dd/ffffff"
+        },
+        "groups": ["ADMIN"],
+        "user_id": "03932786-2f69-43fa-99af-39d70bbd9b25",
+        "encryption_type": "RSA",
+        "created_at": "2021-09-22T19:43:32Z",
+        "expires_at": "2021-09-22T19:43:32Z",
+        "file_name": "Venenatis.doc",
+        "file_size": "10KB",
+        "file_desc": "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.",
+        "file_contents": "Recession of one extraocular muscle"
+    },
+    {
+        "id": "d6172d3f-c034-405e-983a-b81a6bd06a27",
+        "record_type": "FILES",
+        "key_id": "a8a5a0ff-87f3-493f-9bd8-8a9e0e3f3e99",
+        "category": {
+            "name": "SCHOOL",
+            "img_url": "http://dummyimage.com/145x100.png/dddddd/000000"
+        },
+        "groups": ["ADMIN"],
+        "user_id": "a8a5a0ff-87f3-493f-9bd8-8a9e0e3f3e99",
+        "encryption_type": "AES_256",
+        "created_at": "2021-09-22T19:43:32Z",
+        "expires_at": "2021-09-22T19:43:32Z",
+        "file_name": "Lectus.avi",
+        "file_size": "10KB",
+        "file_desc": "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.",
+        "file_contents": "Repair of hip, not elsewhere classified"
+    },
+    {
+        "id": "3e89424f-6719-4849-8bc7-329c8d51ceac",
+        "record_type": "FILES",
+        "key_id": "3aa179da-a5bb-4f76-a5ab-ffda63fa0d13",
+        "category": {
+            "name": "SCHOOL",
+            "img_url": "http://dummyimage.com/202x100.png/dddddd/000000"
+        },
+        "groups": ["USER"],
+        "user_id": "3aa179da-a5bb-4f76-a5ab-ffda63fa0d13",
+        "encryption_type": "AES_256",
+        "created_at": "2021-09-22T19:43:32Z",
+        "expires_at": "2021-09-22T19:43:32Z",
+        "file_name": "Urna.txt",
+        "file_size": "10KB",
+        "file_desc": "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.",
+        "file_contents": "Biopsy of pineal gland"
+    }
+]

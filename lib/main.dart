@@ -1,30 +1,32 @@
+import 'dart:io';
 import 'package:flutter/material.dart';
-import 'package:desktop_window/desktop_window.dart';
+import 'package:window_size/window_size.dart';
 
-import 'package:password_manager/screens/home_page.dart';
-import 'package:password_manager/themes/custom_colors.dart';
+import 'package:password_manager/data/app_data.dart';
+import 'package:password_manager/screens/home/home_page.dart';
+import 'package:password_manager/themes/app_theme_data.dart';
 
-
-void main() async {
+void main() {
   WidgetsFlutterBinding.ensureInitialized();
-  await DesktopWindow.setMinWindowSize(Size(800, 700));
+  if (Platform.isWindows || Platform.isLinux || Platform.isMacOS) {
+    setWindowTitle(AppData.appName);
+    setWindowMinSize(Size(800, 700));
+    setWindowMaxSize(Size(800, 700));
+  }
 
   runApp(MyApp());
 }
 
-
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final ThemeData themeData = AppThemeData().theme;
+
     return MaterialApp(
-      title: 'Key Vault',
+      title: AppData.appName,
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        fontFamily: "Open_Sans",
-        primaryColor: CustomColors.primaryLight,
-        scaffoldBackgroundColor: CustomColors.backgroundColorWhite,
-      ),
-      home: HomePage(title: 'Password Manager'),
+      theme: themeData,
+      home: HomePage(title: AppData.appName),
     );
   }
 }

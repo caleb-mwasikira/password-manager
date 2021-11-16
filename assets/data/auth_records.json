@@ -1,0 +1,172 @@
+[
+    {
+        "id": "1197f223-613d-4327-a768-73918987697c",
+        "record_type": "AUTH",
+        "key_id": "9d60500f-3257-43dd-aa38-33146493c9dd",
+        "category": {
+            "name": "SCHOOL",
+            "img_url": "http://dummyimage.com/151x100.png/cc0000/ffffff"
+        },
+        "groups": ["USER"],
+        "user_id": "9d60500f-3257-43dd-aa38-33146493c9dd",
+        "encryption_type": "FERNET",
+        "created_at": "2021-05-23T18:31:06Z",
+        "expires_at": "2021-06-26T01:54:46Z",
+        "website_url": "http://usgs.gov/quam/pede/lobortis/ligula/sit/amet/eleifend.png",
+        "email": "hblum0@yale.edu",
+        "password": "1f15b60bc12b5c2e013f248b45a0da03e69fa395"
+    },
+    {
+        "id": "cbf4e576-d0f3-406a-bd7a-dededde498ef",
+        "record_type": "AUTH",
+        "key_id": "ee2b1929-0b0b-4e95-b40e-5e194a0c34c9",
+        "category": {
+            "name": "BANKING",
+            "img_url": "http://dummyimage.com/136x100.png/dddddd/000000"
+        },
+        "groups": ["ADMIN"],
+        "user_id": "ee2b1929-0b0b-4e95-b40e-5e194a0c34c9",
+        "encryption_type": "FERNET",
+        "created_at": "2021-05-23T18:31:06Z",
+        "expires_at": "2021-06-26T01:54:46Z",
+        "website_url": "https://meetup.com/sed/augue/aliquam/erat/volutpat/in/congue.xml",
+        "email": "jliger1@smh.com.au",
+        "password": "df37ddba972233855cdef9a2efba84b6fc7bd25c"
+    },
+    {
+        "id": "ea3f9c94-d4a1-4634-932d-6e24c1d26b39",
+        "record_type": "AUTH",
+        "key_id": "0081e63f-6b78-44c8-a24a-a4600a5fa1ca",
+        "category": {
+            "name": "ENTERTAINMENT",
+            "img_url": "http://dummyimage.com/212x100.png/cc0000/ffffff"
+        },
+        "groups": ["ADMIN"],
+        "user_id": "0081e63f-6b78-44c8-a24a-a4600a5fa1ca",
+        "encryption_type": "FERNET",
+        "created_at": "2021-05-23T18:31:06Z",
+        "expires_at": "2021-06-26T01:54:46Z",
+        "website_url": "http://cmu.edu/tincidunt/eu/felis/fusce/posuere/felis/sed.json",
+        "email": "njorioz2@techcrunch.com",
+        "password": "04044142b04aaed02d9ebcb0a80143c260dd2bad"
+    },
+    {
+        "id": "3d9e11cc-1ec6-4e75-b642-bdd9159dfb8f",
+        "record_type": "AUTH",
+        "key_id": "a2829590-d0b1-4d01-8aef-e975ef2625a9",
+        "category": {
+            "name": "SCHOOL",
+            "img_url": "http://dummyimage.com/177x100.png/5fa2dd/ffffff"
+        },
+        "groups": ["ADMIN"],
+        "user_id": "a2829590-d0b1-4d01-8aef-e975ef2625a9",
+        "encryption_type": "AES_256",
+        "created_at": "2021-05-23T18:31:06Z0",
+        "expires_at": "2021-06-26T01:54:46Z",
+        "website_url": "http://tmall.com/et/magnis/dis/parturient/montes.png",
+        "email": "rlelievre3@flavors.me",
+        "password": "7c4f3e15df08c7f24a0f2f29a3d4ac8867fa37d1"
+    },
+    {
+        "id": "783159ce-8e5e-4551-8efd-828015df8553",
+        "record_type": "AUTH",
+        "key_id": "076e2136-0525-458c-9965-192247a4caac",
+        "category": {
+            "name": "WALLET",
+            "img_url": "http://dummyimage.com/143x100.png/dddddd/000000"
+        },
+        "groups": ["ADMIN"],
+        "user_id": "076e2136-0525-458c-9965-192247a4caac",
+        "encryption_type": "AES_256",
+        "created_at": "2021-05-23T18:31:06Z",
+        "expires_at": "2021-06-26T01:54:46Z",
+        "website_url": "https://buzzfeed.com/maecenas/tincidunt/lacus/at/velit/vivamus.jsp",
+        "email": "veste4@dyndns.org",
+        "password": "841c889589f93634de145fe329ab423ee5e7cc83"
+    },
+    {
+        "id": "b6b106d5-b0ac-4429-a29c-d716f3e1eb1c",
+        "record_type": "AUTH",
+        "key_id": "a1e4bf30-a7b0-49f9-a61f-dffe0aed92d9",
+        "category": {
+            "name": "BANKING",
+            "img_url": "http://dummyimage.com/128x100.png/5fa2dd/ffffff"
+        },
+        "groups": ["ADMIN"],
+        "user_id": "a1e4bf30-a7b0-49f9-a61f-dffe0aed92d9",
+        "encryption_type": "FERNET",
+        "created_at": "2021-05-23T18:31:06Z",
+        "expires_at": "2021-06-26T01:54:46Z",
+        "website_url": "http://timesonline.co.uk/neque/duis.js",
+        "email": "jstennings5@techcrunch.com",
+        "password": "7d70721ec2f035403e37fcfd57175f1463dc6483"
+    },
+    {
+        "id": "3e68e90d-a1ec-4f26-b858-7c4d226d3b6f",
+        "record_type": "AUTH",
+        "key_id": "2d8d45dc-50f9-479f-9978-09665c2e5edf",
+        "category": {
+            "name": "WALLET",
+            "img_url": "http://dummyimage.com/168x100.png/ff4444/ffffff"
+        },
+        "groups": ["ADMIN"],
+        "user_id": "2d8d45dc-50f9-479f-9978-09665c2e5edf",
+        "encryption_type": "AES_256",
+        "created_at": "2021-05-23T18:31:06Z",
+        "expires_at": "2021-06-26T01:54:46Z",
+        "website_url": "https://ameblo.jp/sapien.aspx",
+        "email": "mbritee6@google.co.uk",
+        "password": "8590aba9b132f102e15ce1486bd5791c25dbe073"
+    },
+    {
+        "id": "434fffc0-4aa4-4ae1-b903-1c7a6610d696",
+        "record_type": "AUTH",
+        "key_id": "c48cf72b-a32c-426f-9a50-336b9c73e3b5",
+        "category": {
+            "name": "WALLET",
+            "img_url": "http://dummyimage.com/164x100.png/cc0000/ffffff"
+        },
+        "groups": ["ADMIN"],
+        "user_id": "c48cf72b-a32c-426f-9a50-336b9c73e3b5",
+        "encryption_type": "FERNET",
+        "created_at": "2021-05-23T18:31:06Z",
+        "expires_at": "2021-06-26T01:54:46Z",
+        "website_url": "http://github.io/odio/porttitor/id/consequat.png",
+        "email": "gaven7@nbcnews.com",
+        "password": "21ad9480a692de137bc820d642787cb5f76ab983"
+    },
+    {
+        "id": "f59a4321-b4b1-48b5-ab7e-7a4211970fc3",
+        "record_type": "AUTH",
+        "key_id": "fb76b589-c13f-4ee6-942f-3a8e1c632e86",
+        "category": {
+            "name": "SCHOOL",
+            "img_url": "http://dummyimage.com/145x100.png/dddddd/000000"
+        },
+        "groups": ["ADMIN"],
+        "user_id": "fb76b589-c13f-4ee6-942f-3a8e1c632e86",
+        "encryption_type": "AES_256",
+        "created_at": "2021-05-23T18:31:06Z0",
+        "expires_at": "2021-06-26T01:54:46Z",
+        "website_url": "https://comcast.net/mauris/enim/leo/rhoncus/sed/vestibulum/sit.json",
+        "email": "ncampany8@usda.gov",
+        "password": "d858ae50fa464a8f9c27070cff9fc9551471d314"
+    },
+    {
+        "id": "04f7cdd0-9f16-4e3b-be05-1de6a23b2c26",
+        "record_type": "AUTH",
+        "key_id": "c9c0e855-d060-4d91-952d-4e87137b2581",
+        "category": {
+            "name": "SCHOOL",
+            "img_url": "http://dummyimage.com/237x100.png/cc0000/ffffff"
+        },
+        "groups": ["ADMIN"],
+        "user_id": "c9c0e855-d060-4d91-952d-4e87137b2581",
+        "encryption_type": "RSA",
+        "created_at": "2021-05-23T18:31:06Z",
+        "expires_at": "2021-06-26T01:54:46Z",
+        "website_url": "https://constantcontact.com/cras/mi/pede/malesuada.json",
+        "email": "hhagwood9@google.cn",
+        "password": "d19a3055b6f0c753c2b5b7c15c748ba360e9a6e8"
+    }
+]

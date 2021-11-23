@@ -3,17 +3,24 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 
 class AppThemeData {
-  static BorderRadius borderRadius = BorderRadius.circular(5.0);
-  static double iconSizeLarge = 35.0;
-  static double iconsSizeMedium = 20.0;
-  static double iconsSizeSmall = 15.0;
+  static double borderRadiusSize = 5.0;
+  static BorderRadius borderRadius = BorderRadius.circular(borderRadiusSize);
+  static BorderRadius borderRadiusMedium =
+      BorderRadius.circular(borderRadiusSize * 2);
+  static BorderRadius borderRadiusLarge =
+      BorderRadius.circular(borderRadiusSize * 10);
+
+  static const double iconSizeLarge = 35.0;
+  static const double iconsSizeMedium = 20.0;
+  static const double iconsSizeSmall = 15.0;
 
   static const Color primaryColor = Color(0XFF15ACA2);
   static const Color primaryColorDark = Color(0XFF048C7F);
   static const Color textColor = Color(0XFF324047);
   static const Color whiteColor = Color(0XFFFFFFFF);
-  static Color shadowColor = Colors.grey.withOpacity(0.5);
-  static Color secondaryScaffoldBackgroundColor = Color(0XFFF8F7FC);
+  static const Color shadowColor = Color(0XFFF6F6F6);
+  static const Color secondaryScaffoldBackgroundColor = Color(0XFFF8F7FC);
+
   static List<Color> colors = [
     Colors.lightBlueAccent,
     Colors.redAccent,
@@ -61,7 +68,7 @@ class AppThemeData {
         ),
         bodyText2: TextStyle(
           color: textColor,
-          fontSize: 11.0,
+          fontSize: 12.0,
           fontFamily: "Roboto_Mono",
           fontWeight: FontWeight.w400,
         ),

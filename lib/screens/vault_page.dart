@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:line_icons/line_icons.dart';
 import 'package:custom_pop_up_menu/custom_pop_up_menu.dart';
 
+import 'package:password_manager/data/app_data.dart';
 import 'package:password_manager/entities/enums.dart';
-import 'package:password_manager/entities/item.dart';
+import 'package:password_manager/entities/menu_item.dart';
 import 'package:password_manager/themes/app_theme_data.dart';
 import 'package:password_manager/widgets/create_new_record.dart';
 import 'package:password_manager/widgets/action_button.dart';
@@ -11,24 +12,26 @@ import 'package:password_manager/widgets/appbar_widget.dart';
 import 'package:password_manager/widgets/drawer/drawer_widget.dart';
 import 'package:password_manager/widgets/vault_records.dart';
 import 'package:password_manager/widgets/selected_record.dart';
+import 'package:password_manager/utils/enum_extension.dart';
 
-class HomePage extends StatefulWidget {
-  const HomePage({Key? key, required this.title}) : super(key: key);
-  final String title;
+class VaultPage extends StatefulWidget {
+  final String title = AppData.appName;
+
+  VaultPage({Key? key}) : super(key: key);
 
   @override
-  _HomePageState createState() => _HomePageState();
+  _VaultPageState createState() => _VaultPageState();
 }
 
-class _HomePageState extends State<HomePage> {
-  late List<Item> menuItems;
+class _VaultPageState extends State<VaultPage> {
+  late List<MenuItem> menuItems;
   CustomPopupMenuController _controller = CustomPopupMenuController();
 
   @override
   void initState() {
     menuItems = [
-      Item(name: RecordType.AUTH, icon: LineIcons.key),
-      Item(name: RecordType.FILES, icon: LineIcons.copyAlt),
+      MenuItem(title: RecordType.AUTH.value, icon: LineIcons.keycdn),
+      MenuItem(title: RecordType.FILES.value, icon: LineIcons.copy),
     ];
 
     super.initState();
@@ -52,7 +55,7 @@ class _HomePageState extends State<HomePage> {
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: menuItems
                     .map(
-                      (item) => menuItemWidget(item: item),
+                      (item) => menuItemWidget(menuItem: item),
                     )
                     .toList(),
               ),
@@ -94,72 +97,66 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  Widget menuItemWidget({required Item item}) {
+  Widget menuItemWidget({required MenuItem menuItem}) {
     return Container(
       margin: EdgeInsets.symmetric(vertical: 5.0),
       decoration: BoxDecoration(
         color: Colors.lightBlueAccent,
-        borderRadius: AppThemeData.borderRadius,
+        borderRadius: BorderRadius.all(Radius.circular(100.0)),
       ),
       child: InkWell(
         onTap: () async {
-          print('menu item ${item.name.toString()} was clicked');
+          print('menu item ${menuItem.title} was clicked');
           _controller.hideMenu();
 
-          createNewVault(context: context, recordType: item.name);
+          return showDialog(
+            context: context,
+            builder: (BuildContext context) {
+              return AlertDialog(
+                title: Center(
+                  child: Container(
+                    margin: EdgeInsets.symmetric(vertical: 10.0),
+                    child: Text(
+                      "Create New Record",
+                      style: Theme.of(context).textTheme.headline1,
+                    ),
+                  ),
+                ),
+                content: CreateNewRecord(
+                  recordType: RecordType.values
+                      .firstWhere((e) => e.toString() == menuItem.title),
+                  onComplete: () {
+                    print('creating a new vault account');
+                  },
+                ),
+              );
+            },
+          );
         },
         child: Container(
-          margin: EdgeInsets.symmetric(horizontal: 20, vertical: 10.0),
+          width: 100.0,
           child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: <Widget>[
               Icon(
-                item.icon,
+                menuItem.icon,
                 size: AppThemeData.iconsSizeMedium,
                 color: Colors.white,
               ),
-              Expanded(
-                child: Container(
-                  margin: EdgeInsets.only(left: 10),
-                  padding: EdgeInsets.symmetric(vertical: 10),
-                  child: Text(
-                    item.name.toString(),
-                    style: Theme.of(context)
-                        .textTheme
-                        .bodyText1
-                        ?.copyWith(color: Colors.white),
-                  ),
+              Container(
+                padding: EdgeInsets.symmetric(vertical: 10),
+                child: Text(
+                  menuItem.title,
+                  style: Theme.of(context)
+                      .textTheme
+                      .bodyText1
+                      ?.copyWith(color: Colors.white),
                 ),
               ),
             ],
           ),
         ),
       ),
-    );
-  }
-
-  Future<dynamic> createNewVault(
-      {required BuildContext context, required RecordType recordType}) {
-    return showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: Center(
-            child: Container(
-              margin: EdgeInsets.symmetric(vertical: 10.0),
-              child: Text(
-                "Create New Record",
-                style: Theme.of(context).textTheme.headline1,
-              ),
-            ),
-          ),
-          content: CreateNewRecord(
-            recordType: recordType,
-            onComplete: () {
-              print('creating a new vault account');
-            },
-          ),
-        );
-      },
     );
   }
 }

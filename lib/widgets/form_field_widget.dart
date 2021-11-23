@@ -4,17 +4,18 @@ import 'package:clipboard/clipboard.dart';
 import 'package:line_icons/line_icons.dart';
 import 'package:regexpattern/regexpattern.dart';
 
-import 'package:password_manager/widgets/action_button.dart';
 import 'package:password_manager/themes/app_theme_data.dart';
 
-// ignore: must_be_immutable
 class FormFieldWidget extends StatefulWidget {
-  String initialValue;
-  bool obscureText;
-  bool readOnly;
-  TextInputType textInputType;
-  String labelText;
-  IconData prefixIcon;
+  final String initialValue;
+  final bool obscureText;
+  final bool readOnly;
+  final TextInputType textInputType;
+  final String name;
+  final String? labelText;
+  final String? hintText;
+  final IconData? prefixIcon;
+  final double width;
 
   FormFieldWidget({
     Key? key,
@@ -22,8 +23,11 @@ class FormFieldWidget extends StatefulWidget {
     this.obscureText = false,
     this.readOnly = false,
     this.textInputType = TextInputType.text,
-    required this.labelText,
-    required this.prefixIcon,
+    required this.name,
+    this.labelText,
+    this.hintText,
+    this.prefixIcon,
+    this.width = 300.0,
   }) : super(key: key);
 
   @override
@@ -34,112 +38,124 @@ class FormFieldWidget extends StatefulWidget {
 class _FormFieldWidgetState extends State<FormFieldWidget> {
   bool readOnly;
   bool isTextHidden;
-  bool isValid = false;
+  String? errorMessage;
 
   _FormFieldWidgetState({required this.isTextHidden, required this.readOnly});
 
-  String? validateInputType({
+  String? _validateInputType({
     required String value,
     required TextInputType textInputType,
   }) {
-    if (textInputType == TextInputType.emailAddress && !value.isEmail()) {
-      return 'input must be a valid email';
-    } else if (textInputType == TextInputType.url && !value.isUrl()) {
-      return 'input must be a valid url';
-    } else if (textInputType == TextInputType.visiblePassword &&
-        !value.isPasswordNormal1()) {
-      return 'please enter a strong password';
+    if (textInputType == TextInputType.emailAddress) {
+      return !value.isEmail() ? 'input must be a valid email' : null;
+    } else if (textInputType == TextInputType.url) {
+      return !value.isUrl() ? 'input must be a valid url' : null;
+    } else {
+      return !value.isPasswordNormal1()
+          ? 'please enter a strong password'
+          : null;
     }
-    return null;
   }
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Container(
-          width: 300.0,
-          margin: EdgeInsets.symmetric(vertical: 5.0),
-          child: TextFormField(
-            initialValue: widget.initialValue,
-            validator: (value) {
-              if (value == null || value.isEmpty) {
-                return '${widget.labelText.toLowerCase()} cannot be empty';
-              }
+    return Container(
+      width: widget.width,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Card(
+            elevation: 2.0,
+            shape: RoundedRectangleBorder(
+              borderRadius: AppThemeData.borderRadiusLarge,
+            ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Container(
+                  width: widget.width - 20,
+                  child: TextFormField(
+                    initialValue: widget.initialValue,
+                    validator: (value) {
+                      String? _errorMessage = "";
 
-              String? message = validateInputType(
-                  value: value, textInputType: widget.textInputType);
+                      if (value == null || value.isEmpty) {
+                        _errorMessage = '${widget.name} cannot be empty';
+                      } else {
+                        _errorMessage = _validateInputType(
+                            value: value, textInputType: widget.textInputType);
+                      }
 
-              bool _isValid = message == null ? true : false;
-              setState(() {
-                isValid = _isValid;
-              });
-
-              return message;
-            },
-            obscureText: isTextHidden,
-            readOnly: readOnly,
-            style: Theme.of(context)
-                .textTheme
-                .bodyText1!
-                .copyWith(fontSize: 15.0, letterSpacing: 2),
-            decoration: InputDecoration(
-                focusedBorder: outlineInputBorder(context: context, width: 4.0),
-                enabledBorder: outlineInputBorder(context: context),
-                prefixIcon: IconButton(
-                    hoverColor: Colors.transparent,
-                    iconSize: AppThemeData.iconsSizeMedium,
-                    tooltip: "Copy ${widget.labelText}",
-                    onPressed: () {
-                      FlutterClipboard.copy(widget.initialValue).then((value) {
-                        print('copied ${widget.labelText} to clipboard');
+                      setState(() {
+                        errorMessage = _errorMessage ?? '';
                       });
-                    },
-                    icon: Icon(widget.prefixIcon)),
-                suffixIcon: widget.textInputType ==
-                        TextInputType.visiblePassword
-                    ? IconButton(
-                        hoverColor: Colors.transparent,
-                        iconSize: AppThemeData.iconsSizeMedium,
-                        tooltip:
-                            isTextHidden ? "View Password" : "Hide Password",
-                        onPressed: () {
-                          setState(() {
-                            isTextHidden = !isTextHidden;
-                          });
-                        },
-                        icon: Icon(isTextHidden
-                            ? LineIcons.eye
-                            : LineIcons.eyeSlashAlt),
-                      )
-                    : SizedBox.shrink(),
-                labelText: widget.labelText,
-                labelStyle: Theme.of(context).textTheme.bodyText1),
-          ),
-        ),
-        isValid
-            ? ActionButton(
-                margin: EdgeInsets.symmetric(horizontal: 5.0),
-                hasShadow: false,
-                child: Icon(
-                  LineIcons.checkCircle,
-                  color: Colors.greenAccent,
-                ),
-              )
-            : SizedBox(width: 25.0)
-      ],
-    );
-  }
 
-  UnderlineInputBorder outlineInputBorder({
-    required BuildContext context,
-    double width = 2.0,
-  }) {
-    return UnderlineInputBorder(
-      borderSide:
-          BorderSide(color: Theme.of(context).primaryColor, width: width),
-      borderRadius: AppThemeData.borderRadius,
+                      return null;
+                    },
+                    obscureText: isTextHidden,
+                    readOnly: readOnly,
+                    style: Theme.of(context).textTheme.bodyText1,
+                    decoration: InputDecoration(
+                      focusedBorder: InputBorder.none,
+                      enabledBorder: InputBorder.none,
+                      errorBorder: InputBorder.none,
+                      focusedErrorBorder: InputBorder.none,
+                      prefixIcon: widget.prefixIcon != null
+                          ? IconButton(
+                              padding: EdgeInsets.symmetric(horizontal: 10.0),
+                              hoverColor: Colors.transparent,
+                              iconSize: AppThemeData.iconsSizeMedium,
+                              tooltip: "Copy ${widget.name}",
+                              onPressed: () {
+                                FlutterClipboard.copy(widget.initialValue)
+                                    .then((value) {
+                                  print('copied ${widget.name} to clipboard');
+                                });
+                              },
+                              icon: Icon(widget.prefixIcon),
+                            )
+                          : SizedBox.shrink(),
+                      suffixIcon: widget.textInputType ==
+                              TextInputType.visiblePassword
+                          ? IconButton(
+                              padding: EdgeInsets.symmetric(horizontal: 20.0),
+                              hoverColor: Colors.transparent,
+                              iconSize: AppThemeData.iconsSizeMedium,
+                              color: AppThemeData.textColor,
+                              tooltip: isTextHidden
+                                  ? "View Password"
+                                  : "Hide Password",
+                              onPressed: () {
+                                setState(() {
+                                  isTextHidden = !isTextHidden;
+                                });
+                              },
+                              icon: Icon(isTextHidden
+                                  ? LineIcons.eye
+                                  : LineIcons.eyeSlashAlt),
+                            )
+                          : SizedBox.shrink(),
+                      labelText: widget.labelText,
+                      labelStyle: Theme.of(context).textTheme.bodyText1,
+                      hintText: widget.hintText,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+          Container(
+            margin: EdgeInsets.symmetric(horizontal: 10.0),
+            child: Text(
+              errorMessage ?? "",
+              style: Theme.of(context)
+                  .textTheme
+                  .bodyText2
+                  ?.copyWith(color: Colors.redAccent),
+            ),
+          ),
+        ],
+      ),
     );
   }
 }

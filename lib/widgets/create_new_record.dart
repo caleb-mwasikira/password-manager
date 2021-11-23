@@ -5,7 +5,7 @@ import 'package:line_icons/line_icons.dart';
 import 'package:password_manager/data/app_data.dart';
 import 'package:password_manager/entities/enums.dart';
 import 'package:password_manager/widgets/form_field_widget.dart';
-import 'package:password_manager/widgets/gallery.dart';
+import 'package:password_manager/widgets/gallery/gallery.dart';
 import 'package:password_manager/themes/app_theme_data.dart';
 
 class CreateNewRecord extends StatefulWidget {
@@ -37,16 +37,19 @@ class _CreateNewRecordState extends State<CreateNewRecord> {
                   child: Column(
                     children: [
                       FormFieldWidget(
+                          name: "Website Url",
                           labelText: "Website Url",
                           textInputType: TextInputType.url,
                           prefixIcon: LineIcons.cloud),
                       FormFieldWidget(
+                          name: "Email",
                           labelText: "Email",
                           textInputType: TextInputType.emailAddress,
                           prefixIcon: LineIcons.inbox),
                       FormFieldWidget(
-                        obscureText: true,
+                        name: "Password",
                         labelText: "Password",
+                        obscureText: true,
                         textInputType: TextInputType.visiblePassword,
                         prefixIcon: LineIcons.lock,
                       ),
@@ -55,11 +58,8 @@ class _CreateNewRecordState extends State<CreateNewRecord> {
                 )
               : Container(),
           Gallery(
-            title: "Select Category",
-            name: "Category",
-            items: AppData.categories
-                .map((category) => category.toJson())
-                .toList(),
+            galleryTitle: "Select Category",
+            items: AppData.categories,
           ),
           ElevatedButton(
             onPressed: () {

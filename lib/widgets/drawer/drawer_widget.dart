@@ -4,7 +4,7 @@ import 'package:line_icons/line_icons.dart';
 import 'package:password_manager/data/app_data.dart';
 import 'package:password_manager/entities/drawer_item.dart';
 import 'package:password_manager/entities/user.dart';
-import 'package:password_manager/widgets/user_photo.dart';
+import 'package:password_manager/widgets/avatars/user_photo.dart';
 import 'package:password_manager/widgets/drawer/drawer_item_widget.dart';
 
 class CustomDrawer extends StatefulWidget {

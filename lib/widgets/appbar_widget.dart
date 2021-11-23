@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:line_icons/line_icons.dart';
 
-import 'package:password_manager/widgets/user_photo.dart';
+import 'package:password_manager/widgets/avatars/user_photo.dart';
 import 'package:password_manager/themes/app_theme_data.dart';
 
 class AppBarWidget extends StatefulWidget {

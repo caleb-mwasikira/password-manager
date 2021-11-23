@@ -5,7 +5,7 @@ import 'package:line_icons/line_icons.dart';
 import 'package:password_manager/data/app_data.dart';
 import 'package:password_manager/entities/user.dart';
 import 'package:password_manager/widgets/action_button.dart';
-import 'package:password_manager/widgets/user_photo.dart';
+import 'package:password_manager/widgets/avatars/user_photo.dart';
 import 'package:password_manager/themes/app_theme_data.dart';
 
 class EditUserPhoto extends StatefulWidget {
@@ -37,7 +37,7 @@ class _EditUserPhotoState extends State<EditUserPhoto>
       });
 
     Future<List<String>> _assetImages =
-        AppData.fetchAssetImages('images/users');
+        AppData.fetchAssetImages(assetDir: 'images/users');
     setState(() {
       assetImages = _assetImages;
     });
@@ -147,36 +147,50 @@ class _EditUserPhotoState extends State<EditUserPhoto>
                             itemBuilder: (BuildContext context, int index) {
                               String assetImage = assetImages[index];
 
-                              if (index == assetImages.length - 1) {
-                                return Row(
-                                  children: [
-                                    displayUserPhoto(
-                                      imgUrl: assetImage,
-                                    ),
-                                    Center(
-                                      child: ActionButton(
-                                        radius: 50.0,
-                                        margin: EdgeInsets.all(10.0),
-                                        child: IconButton(
-                                          onPressed: () {
-                                            selectImageFromDisk();
-                                          },
-                                          padding: EdgeInsets.zero,
-                                          iconSize:
-                                              AppThemeData.iconsSizeMedium,
-                                          icon: Icon(
-                                            LineIcons.plus,
-                                            color: AppThemeData.primaryColor,
-                                          ),
-                                        ),
+                              return Row(
+                                children: [
+                                  Container(
+                                    margin:
+                                        EdgeInsets.symmetric(horizontal: 10.0),
+                                    child: InkWell(
+                                      onTap: () {
+                                        print(
+                                            'selected user photo $assetImage');
+                                        setState(() {
+                                          selectedUserProfile = assetImage;
+                                        });
+                                      },
+                                      child: UserPhoto(
+                                        imgUrl: assetImage,
+                                        radius: 20.0,
+                                        isEditable: false,
                                       ),
-                                    )
-                                  ],
-                                );
-                              }
+                                    ),
+                                  ),
 
-                              return displayUserPhoto(
-                                imgUrl: assetImage,
+                                  /// If the index is the last one in the list, display the selectImageFromDiskBtn
+                                  index == assetImages.length - 1
+                                      ? Center(
+                                          child: ActionButton(
+                                            radius: 50.0,
+                                            margin: EdgeInsets.all(10.0),
+                                            child: IconButton(
+                                              onPressed: () {
+                                                selectImageFromDisk();
+                                              },
+                                              padding: EdgeInsets.zero,
+                                              iconSize:
+                                                  AppThemeData.iconsSizeMedium,
+                                              icon: Icon(
+                                                LineIcons.plus,
+                                                color:
+                                                    AppThemeData.primaryColor,
+                                              ),
+                                            ),
+                                          ),
+                                        )
+                                      : SizedBox.shrink()
+                                ],
                               );
                             },
                           ),
@@ -191,27 +205,6 @@ class _EditUserPhotoState extends State<EditUserPhoto>
             ),
           )
         ],
-      ),
-    );
-  }
-
-  Widget displayUserPhoto({
-    String? imgUrl,
-  }) {
-    return Container(
-      margin: EdgeInsets.symmetric(horizontal: 10.0),
-      child: InkWell(
-        onTap: () {
-          print('selected user photo $imgUrl');
-          setState(() {
-            selectedUserProfile = imgUrl;
-          });
-        },
-        child: UserPhoto(
-          imgUrl: imgUrl,
-          radius: 20.0,
-          isEditable: false,
-        ),
       ),
     );
   }

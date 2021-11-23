@@ -10,9 +10,10 @@ class FileRecord implements Record {
   final String id;
   final RecordType recordType;
   String? keyID;
+  String userID;
+  final String vaultID;
   Map<String, dynamic>? category;
   List? groups;
-  String? userID;
   EncryptionType? encryptionType;
   final DateTime createdAt;
   DateTime? expiresAt;
@@ -26,9 +27,10 @@ class FileRecord implements Record {
     required this.id,
     required this.recordType,
     this.keyID,
+    required this.userID,
+    required this.vaultID,
     this.category,
     this.groups,
-    this.userID,
     this.encryptionType,
     required this.createdAt,
     this.expiresAt,
@@ -46,9 +48,10 @@ class FileRecord implements Record {
       recordType:
           RecordType.values.firstWhere((e) => e.value == json['record_type']),
       keyID: json['key_id'],
+      userID: json['user_id'],
+      vaultID: json['vault_id'],
       category: json['category'],
       groups: json['groups'],
-      userID: json['user_id'],
       encryptionType: EncryptionType.values
           .firstWhere((e) => e.value == json['encryption_type']),
       createdAt: isoStringToDatetime(json['created_at']),
@@ -66,9 +69,10 @@ class FileRecord implements Record {
       'id': id,
       'record_type': recordType.toString(),
       'key_id': keyID,
+      'user_id': userID,
+      'vault_id': vaultID,
       'category': category,
       'groups': groups,
-      'user_id': userID,
       'encryption_type': encryptionType.toString(),
       'created_at': createdAt.toIso8601String(),
       'expires_at': expiresAt?.toIso8601String(),

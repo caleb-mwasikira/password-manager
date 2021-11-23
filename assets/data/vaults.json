@@ -1,0 +1,122 @@
+[
+    {
+        "id": "082b5564-d09a-4d29-8c22-45322b8e99c2",
+        "name": "Alphazap",
+        "img_url": "http://dummyimage.com/203x100.png/cc0000/ffffff",
+        "max_allowed_storage": 828,
+        "used_storage": 30,
+        "free_storage": 99,
+        "last_viewed": "8/6/2021",
+        "created_at": "7/28/2021",
+        "expires_at": "7/15/2021",
+        "records": []
+    },
+    {
+        "id": "dc2acf38-135e-4d32-9346-cbfc7558509f",
+        "name": "Bigtax",
+        "img_url": "http://dummyimage.com/197x100.png/ff4444/ffffff",
+        "max_allowed_storage": 849,
+        "used_storage": 69,
+        "free_storage": 91,
+        "last_viewed": "8/12/2021",
+        "created_at": "10/9/2021",
+        "expires_at": "5/3/2021",
+        "records": []
+    },
+    {
+        "id": "5ca4f6fb-5221-4ed2-ab45-1e1d4fd9f7bb",
+        "name": "Zontrax",
+        "img_url": "http://dummyimage.com/243x100.png/cc0000/ffffff",
+        "max_allowed_storage": 492,
+        "used_storage": 34,
+        "free_storage": 84,
+        "last_viewed": "9/8/2021",
+        "created_at": "12/30/2020",
+        "expires_at": "5/17/2021",
+        "records": []
+    },
+    {
+        "id": "05f1fa1c-f8ad-416c-8bad-62d76c628037",
+        "name": "Job",
+        "img_url": "http://dummyimage.com/219x100.png/cc0000/ffffff",
+        "max_allowed_storage": 358,
+        "used_storage": 27,
+        "free_storage": 52,
+        "last_viewed": "12/11/2020",
+        "created_at": "3/7/2021",
+        "expires_at": "9/20/2021",
+        "records": []
+    },
+    {
+        "id": "a90c8d43-7d0e-464a-9ac0-3844883a4d9e",
+        "name": "Stronghold",
+        "img_url": "http://dummyimage.com/194x100.png/cc0000/ffffff",
+        "max_allowed_storage": 644,
+        "used_storage": 71,
+        "free_storage": 58,
+        "last_viewed": "5/16/2021",
+        "created_at": "1/4/2021",
+        "expires_at": "10/23/2021",
+        "records": []
+    },
+    {
+        "id": "3d8a0c6f-1510-452e-b3ea-75bf652b2d4c",
+        "name": "Trippledex",
+        "img_url": "http://dummyimage.com/115x100.png/cc0000/ffffff",
+        "max_allowed_storage": 876,
+        "used_storage": 63,
+        "free_storage": 16,
+        "last_viewed": "5/10/2021",
+        "created_at": "4/2/2021",
+        "expires_at": "2/11/2021",
+        "records": []
+    },
+    {
+        "id": "e2a8057b-9058-4160-8261-0e37963494b1",
+        "name": "Domainer",
+        "img_url": "http://dummyimage.com/121x100.png/dddddd/000000",
+        "max_allowed_storage": 457,
+        "used_storage": 19,
+        "free_storage": 77,
+        "last_viewed": "4/4/2021",
+        "created_at": "1/27/2021",
+        "expires_at": "2/4/2021",
+        "records": []
+    },
+    {
+        "id": "5c24d4b8-6e34-4ea8-ad18-7e2dd8b03b3c",
+        "name": "Fixflex",
+        "img_url": "http://dummyimage.com/169x100.png/ff4444/ffffff",
+        "max_allowed_storage": 552,
+        "used_storage": 31,
+        "free_storage": 78,
+        "last_viewed": "2/3/2021",
+        "created_at": "12/30/2020",
+        "expires_at": "6/29/2021",
+        "records": []
+    },
+    {
+        "id": "3ecbd330-0c0e-4dcb-87d1-7e48c55069b4",
+        "name": "Solarbreeze",
+        "img_url": "http://dummyimage.com/102x100.png/cc0000/ffffff",
+        "max_allowed_storage": 662,
+        "used_storage": 78,
+        "free_storage": 14,
+        "last_viewed": "9/23/2021",
+        "created_at": "9/9/2021",
+        "expires_at": "7/26/2021",
+        "records": []
+    },
+    {
+        "id": "d5146514-e75e-4825-92e6-a11b0a687ef9",
+        "name": "Sonair",
+        "img_url": "http://dummyimage.com/110x100.png/cc0000/ffffff",
+        "max_allowed_storage": 454,
+        "used_storage": 35,
+        "free_storage": 71,
+        "last_viewed": "5/11/2021",
+        "created_at": "5/3/2021",
+        "expires_at": "9/5/2021",
+        "records": []
+    }
+]

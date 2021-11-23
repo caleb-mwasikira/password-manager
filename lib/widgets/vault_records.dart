@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:password_manager/data/app_data.dart';
 
 import 'package:password_manager/entities/auth_record.dart';
 import 'package:password_manager/entities/enums.dart';
@@ -23,23 +24,16 @@ class VaultRecords extends StatefulWidget {
 
 class _VaultRecordsState extends State<VaultRecords> {
   Future<List>? vaultRecords;
+  int selectedIndex = 0;
 
   @override
   void initState() {
     setState(() {
-      vaultRecords = _fetchVaultRecords();
+      vaultRecords =
+          AppData.fetchAssetData(dataDir: 'assets/data/records.json');
     });
 
     super.initState();
-  }
-
-  Future<List> _fetchVaultRecords() async {
-    final recordsContent =
-        await rootBundle.loadString('assets/data/records.json');
-    final List _vaultRecords = json.decode(recordsContent);
-
-    _vaultRecords.shuffle();
-    return _vaultRecords;
   }
 
   @override
@@ -77,21 +71,47 @@ class _VaultRecordsState extends State<VaultRecords> {
                       itemBuilder: (BuildContext context, int index) {
                         final Map vaultRecord = vaultRecords[index];
 
-                        final RecordType recordType = RecordType.values
+                        final RecordType _recordType = RecordType.values
                             .firstWhere(
                                 (e) => e.value == vaultRecord["record_type"]);
 
-                        return Container(
+                        final bool _isSelected = selectedIndex == index;
+                        final Color _selectedColor =
+                            _isSelected ? Colors.lightBlueAccent : Colors.white;
+
+                        return Card(
+                          elevation: _isSelected ? 4.0 : 1.0,
+                          color: _selectedColor,
+                          shadowColor: _selectedColor,
                           margin: EdgeInsets.symmetric(
-                              horizontal: 20.0, vertical: 20.0),
-                          decoration: BoxDecoration(
+                              horizontal: 20.0, vertical: 30.0),
+                          child: InkWell(
+                            hoverColor: Colors.transparent,
+                            focusColor: Colors.blueAccent,
+                            highlightColor: Colors.blueAccent,
+                            onTap: () {
+                              print(
+                                  '[Record] type [${_recordType.toString()}] was clicked');
+
+                              if (this.mounted) {
+                                setState(() {
+                                  selectedIndex = index;
+                                });
+                              }
+                            },
                             borderRadius: AppThemeData.borderRadius,
+                            child: _recordType == RecordType.AUTH
+                                ? AuthRecordWidget(
+                                    authRecord:
+                                        AuthRecord.fromJson(vaultRecord),
+                                    isSelected: _isSelected,
+                                  )
+                                : FileRecordWidget(
+                                    fileRecord:
+                                        FileRecord.fromJson(vaultRecord),
+                                    isSelected: _isSelected,
+                                  ),
                           ),
-                          child: recordType == RecordType.AUTH
-                              ? AuthRecordWidget(
-                                  authRecord: AuthRecord.fromJson(vaultRecord))
-                              : FileRecordWidget(
-                                  fileRecord: FileRecord.fromJson(vaultRecord)),
                         );
                       },
                     ),

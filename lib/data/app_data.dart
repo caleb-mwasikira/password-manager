@@ -1,11 +1,9 @@
 import 'dart:convert';
-import 'dart:math';
-import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:line_icons/line_icons.dart';
-import 'package:password_manager/entities/item.dart';
 import 'package:uuid/uuid.dart';
 
+import 'package:password_manager/widgets/gallery/gallery_item.dart';
 import 'package:password_manager/entities/drawer_item.dart';
 import 'package:password_manager/entities/user.dart';
 
@@ -35,19 +33,35 @@ class AppData {
     vault: [],
   );
 
-  static List<Item> categories = [
-    Item(name: "School", imgUrl: "assets/images/categories/backpack.png"),
-    Item(name: "Entertainment", imgUrl: "assets/images/categories/console.png"),
-    Item(name: "Wallet", imgUrl: "assets/images/categories/wallet.png"),
-    Item(name: "Hospital", imgUrl: "assets/images/categories/medicine.png"),
+  static List<GalleryItem> categories = [
+    GalleryItem(
+        name: "School", imgUrl: "assets/images/categories/backpack.png"),
+    GalleryItem(
+        name: "Entertainment", imgUrl: "assets/images/categories/console.png"),
+    GalleryItem(name: "Wallet", imgUrl: "assets/images/categories/wallet.png"),
+    GalleryItem(
+        name: "Hospital", imgUrl: "assets/images/categories/medicine.png"),
   ];
 
-  static Future<List<String>> fetchAssetImages(String assetDir) async {
+  static Future<List<String>> fetchAssetImages({
+    required String assetDir,
+  }) async {
     final manifestContent = await rootBundle.loadString('AssetManifest.json');
     final Map<String, dynamic> manifestMap = jsonDecode(manifestContent);
     final List<String> imagePaths =
         manifestMap.keys.where((String key) => key.contains(assetDir)).toList();
 
     return imagePaths;
+  }
+
+  static Future<List> fetchAssetData({
+    required String dataDir,
+    int? limit,
+  }) async {
+    final dataContent = await rootBundle.loadString(dataDir);
+    final List data = jsonDecode(dataContent);
+
+    data.shuffle();
+    return limit != null ? data.take(limit).toList() : data;
   }
 }

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'package:password_manager/widgets/recent_records.dart';
+
 /// The [SelectedRecord] widget displays information about
 /// the currently selected record.
 class SelectedRecord extends StatelessWidget {
@@ -15,14 +17,7 @@ class SelectedRecord extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            Container(
-              width: 400.0,
-              margin: EdgeInsets.symmetric(vertical: 20.0),
-              child: Text(
-                "No selected record",
-                style: Theme.of(context).textTheme.headline1,
-              ),
-            ),
+            RecentRecords(),
           ],
         ),
       ),

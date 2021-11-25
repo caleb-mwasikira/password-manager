@@ -3,9 +3,8 @@
         "id": "fc2a8643-77f1-42fe-89ce-d2387f81611b",
         "username": "Gayle Mosdell",
         "email": "gmosdell0@shinystat.com",
-        "password": "e40ac23358a23371e202f2df83f8075e22668baf3e65a8ca78e8d5e51182f170",
+        "password": "gayle_mosdell",
         "profile_pic": "http://dummyimage.com/231x100.png/ff4444/ffffff",
-        "groups": "USER",
         "keys": [
             {
                 "id": "46c492e3-97ac-49de-b22f-abcf9a337102",
@@ -19,9 +18,8 @@
         "id": "e9fc83fc-7b92-4332-858b-b40e7ce288d2",
         "username": "Anderson Farmery",
         "email": "afarmery1@columbia.edu",
-        "password": "cb00ee294dfac6f02c81690141a4f59f3e62ca146ac67e6a7ee520595296520b",
+        "password": "anderson_farmery",
         "profile_pic": "http://dummyimage.com/171x100.png/5fa2dd/ffffff",
-        "groups": "USER",
         "keys": [
             {
                 "id": "414d011b-0338-41d4-ae21-dbdaf6e243dd",
@@ -35,9 +33,8 @@
         "id": "f4c019d1-4f82-4532-bd70-f3373f160141",
         "username": "Grier Etuck",
         "email": "getuck2@comsenz.com",
-        "password": "4c05d0bf4e8439c9fb68cad5bc526e6bde879108220e0414d3672c07924a927b",
+        "password": "grier_etuck",
         "profile_pic": "http://dummyimage.com/215x100.png/cc0000/ffffff",
-        "groups": "USER",
         "keys": [
             {
                 "id": "6471a61f-b8e8-4a2b-994e-95bce3dba57e",
@@ -51,9 +48,8 @@
         "id": "56493a2e-9a08-4499-869d-db3063d39ddb",
         "username": "Raynard Cogdon",
         "email": "rcogdon3@house.gov",
-        "password": "5565a497c7a0fe244f5de290f2e7e7ffb1fad1e44525e7470ec74c5f3a1709f3",
+        "password": "raynard_cogdon",
         "profile_pic": "http://dummyimage.com/155x100.png/dddddd/000000",
-        "groups": "USER",
         "keys": [
             {
                 "id": "3b69d283-3f02-4bc7-8347-1fb9e18bec08",
@@ -67,9 +63,8 @@
         "id": "966532b0-2f52-4edc-a722-d425c3741a15",
         "username": "Gram Nornasell",
         "email": "gnornasell4@netlog.com",
-        "password": "d635d5b0a73f06e98888a395c027626c548bea35f2722a39a96db10a8904e17b",
+        "password": "gram_nornasell",
         "profile_pic": "http://dummyimage.com/236x100.png/ff4444/ffffff",
-        "groups": "ADMIN",
         "keys": [
             {
                 "id": "8ab3eaea-ff37-4fd5-98bf-83b7ab5596ee",
@@ -83,9 +78,8 @@
         "id": "b724948a-fd01-45dc-8daf-4d1e9467bf80",
         "username": "Lucinda Lamplugh",
         "email": "llamplugh5@51.la",
-        "password": "751011d5f6a82f801197f6b1cf50f728190b6b3bc08dc580848d3a79e8a3f3d2",
+        "password": "lucinda_lamplugh",
         "profile_pic": "http://dummyimage.com/239x100.png/cc0000/ffffff",
-        "groups": "USER",
         "keys": [
             {
                 "id": "c8ccba80-a273-4e61-a86a-b0063b2fb2d5",
@@ -99,9 +93,8 @@
         "id": "f7002b37-36e5-42e8-8129-311ae2f79a9b",
         "username": "Arman Parcall",
         "email": "aparcall6@columbia.edu",
-        "password": "30dde884e7e24aa35ce9e0cd802c1a386764707bd6d69d8f3af9b86f3dd98c75",
+        "password": "arman_parcall",
         "profile_pic": "http://dummyimage.com/177x100.png/5fa2dd/ffffff",
-        "groups": "ADMIN",
         "keys": [
             {
                 "id": "2bbc8f8d-2e84-491e-8df9-d22e8e12a41b",
@@ -121,9 +114,8 @@
         "id": "07275941-75b5-4f16-bd1a-2370fde77bf3",
         "username": "Reinold Murphey",
         "email": "rmurphey7@slashdot.org",
-        "password": "50bef2dc40481fca8a90adf9d341968876737a8a0c1992452b40dec325de3944",
+        "password": "reinold_murphey",
         "profile_pic": "http://dummyimage.com/156x100.png/cc0000/ffffff",
-        "groups": "ADMIN",
         "keys": [
             {
                 "id": "742a9081-6d5e-4831-80f9-e95e17b03def",
@@ -137,9 +129,8 @@
         "id": "a66981f7-5e5f-4a71-bd68-b83765d0527c",
         "username": "Pyotr Szantho",
         "email": "pszantho8@nih.gov",
-        "password": "e3ac13b92c82f46556064d8f1efa2752917932d78cf1507948869a58ed8ff861",
+        "password": "pyotr_szantho",
         "profile_pic": "http://dummyimage.com/203x100.png/cc0000/ffffff",
-        "groups": "ADMIN",
         "keys": [
             {
                 "id": "43459c2b-79c4-453e-b0d2-b94abacd8210",
@@ -153,9 +144,8 @@
         "id": "db5416ec-0ace-43eb-8066-4dfa91ffd744",
         "username": "Henryetta Smithies",
         "email": "hsmithies9@comsenz.com",
-        "password": "4bca007c87b3c7a35ff5fb282fbea01754aaf393261232d870b39eda11b9b97d",
+        "password": "henryetta_smithies",
         "profile_pic": "http://dummyimage.com/122x100.png/dddddd/000000",
-        "groups": "USER",
         "keys": []
     }
 ]

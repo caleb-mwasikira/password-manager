@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:clipboard/clipboard.dart';
 import 'package:line_icons/line_icons.dart';
 import 'package:regexpattern/regexpattern.dart';
@@ -47,12 +46,12 @@ class _FormFieldWidgetState extends State<FormFieldWidget> {
     required TextInputType textInputType,
   }) {
     if (textInputType == TextInputType.emailAddress) {
-      return !value.isEmail() ? 'input must be a valid email' : null;
+      return !value.isEmail() ? 'Input must be a valid email' : null;
     } else if (textInputType == TextInputType.url) {
-      return !value.isUrl() ? 'input must be a valid url' : null;
+      return !value.isUrl() ? 'Input must be a valid url' : null;
     } else {
       return !value.isPasswordNormal1()
-          ? 'please enter a strong password'
+          ? 'Please enter a strong password'
           : null;
     }
   }

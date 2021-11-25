@@ -1,6 +1,4 @@
-import 'dart:convert';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:password_manager/data/app_data.dart';
 
 import 'package:password_manager/entities/auth_record.dart';
@@ -39,6 +37,7 @@ class _VaultRecordsState extends State<VaultRecords> {
   @override
   Widget build(BuildContext context) {
     return Flexible(
+      flex: 2,
       child: FutureBuilder(
         future: vaultRecords,
         builder: (BuildContext context, AsyncSnapshot<List> snapshot) {
@@ -63,57 +62,62 @@ class _VaultRecordsState extends State<VaultRecords> {
                       ),
                     ),
                   )
-                : Container(
-                    padding: EdgeInsets.all(20.0),
-                    child: ListView.builder(
-                      itemCount: vaultRecords.length,
-                      cacheExtent: 800.0,
-                      itemBuilder: (BuildContext context, int index) {
-                        final Map vaultRecord = vaultRecords[index];
+                : SizedBox(
+                    width: 350.0,
+                    child: Container(
+                      margin: EdgeInsets.symmetric(vertical: 20.0),
+                      child: ListView.builder(
+                        itemCount: vaultRecords.length,
+                        cacheExtent: 800.0,
+                        itemBuilder: (BuildContext context, int index) {
+                          final Map vaultRecord = vaultRecords[index];
 
-                        final RecordType _recordType = RecordType.values
-                            .firstWhere(
-                                (e) => e.value == vaultRecord["record_type"]);
+                          final RecordType _recordType = RecordType.values
+                              .firstWhere(
+                                  (e) => e.value == vaultRecord["record_type"]);
 
-                        final bool _isSelected = selectedIndex == index;
-                        final Color _selectedColor =
-                            _isSelected ? Colors.lightBlueAccent : Colors.white;
+                          final bool _isSelected = selectedIndex == index;
+                          final Color _selectedColor = _isSelected
+                              ? Colors.lightBlueAccent
+                              : Colors.white;
 
-                        return Card(
-                          elevation: _isSelected ? 4.0 : 1.0,
-                          color: _selectedColor,
-                          shadowColor: _selectedColor,
-                          margin: EdgeInsets.symmetric(
-                              horizontal: 20.0, vertical: 30.0),
-                          child: InkWell(
-                            hoverColor: Colors.transparent,
-                            focusColor: Colors.blueAccent,
-                            highlightColor: Colors.blueAccent,
-                            onTap: () {
-                              print(
-                                  '[Record] type [${_recordType.toString()}] was clicked');
+                          return Card(
+                            elevation: _isSelected ? 4.0 : 1.0,
+                            color: _selectedColor,
+                            shadowColor: _selectedColor,
+                            margin: EdgeInsets.symmetric(
+                                horizontal: 20.0, vertical: 30.0),
+                            clipBehavior: Clip.hardEdge,
+                            child: InkWell(
+                              hoverColor: Colors.transparent,
+                              focusColor: Colors.blueAccent,
+                              highlightColor: Colors.blueAccent,
+                              onTap: () {
+                                print(
+                                    '[Record] type [${_recordType.toString()}] was clicked');
 
-                              if (this.mounted) {
-                                setState(() {
-                                  selectedIndex = index;
-                                });
-                              }
-                            },
-                            borderRadius: AppThemeData.borderRadius,
-                            child: _recordType == RecordType.AUTH
-                                ? AuthRecordWidget(
-                                    authRecord:
-                                        AuthRecord.fromJson(vaultRecord),
-                                    isSelected: _isSelected,
-                                  )
-                                : FileRecordWidget(
-                                    fileRecord:
-                                        FileRecord.fromJson(vaultRecord),
-                                    isSelected: _isSelected,
-                                  ),
-                          ),
-                        );
-                      },
+                                if (this.mounted) {
+                                  setState(() {
+                                    selectedIndex = index;
+                                  });
+                                }
+                              },
+                              borderRadius: AppThemeData.borderRadius,
+                              child: _recordType == RecordType.AUTH
+                                  ? AuthRecordWidget(
+                                      authRecord:
+                                          AuthRecord.fromJson(vaultRecord),
+                                      isSelected: _isSelected,
+                                    )
+                                  : FileRecordWidget(
+                                      fileRecord:
+                                          FileRecord.fromJson(vaultRecord),
+                                      isSelected: _isSelected,
+                                    ),
+                            ),
+                          );
+                        },
+                      ),
                     ),
                   );
           }

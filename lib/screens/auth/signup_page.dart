@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import 'package:password_manager/widgets/auth_widgets/auth_form.dart';
 
 class SignUpPage extends StatefulWidget {

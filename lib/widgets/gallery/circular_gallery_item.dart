@@ -11,15 +11,16 @@ class CircularGalleryItem extends StatefulWidget implements GalleryItem {
   final RecordType? recordType;
 
   final double radius;
-  final bool isSelected;
+  final bool isSelected, isAssetImage;
 
   const CircularGalleryItem({
     Key? key,
     required this.name,
     required this.imgUrl,
     this.recordType,
-    this.radius = 40.0,
+    this.radius = 30.0,
     this.isSelected = false,
+    this.isAssetImage = false,
   }) : super(key: key);
 
   @override
@@ -31,31 +32,41 @@ class _CircularGalleryItemState extends State<CircularGalleryItem> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Container(
-          padding: EdgeInsets.all(2.0),
-          decoration: BoxDecoration(
-            shape: BoxShape.circle,
-            border: Border.all(
-              color: widget.isSelected ? selectedColor : Colors.transparent,
-              width: 2.0,
+    return Container(
+      margin: EdgeInsets.symmetric(horizontal: 10.0),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Container(
+            padding: EdgeInsets.all(2.0),
+            decoration: BoxDecoration(
+              shape: BoxShape.circle,
+              border: Border.all(
+                color: widget.isSelected ? selectedColor : Colors.transparent,
+                width: 2.0,
+              ),
+            ),
+            child: widget.isAssetImage && widget.imgUrl != null
+                ? Image.asset(
+                    widget.imgUrl!,
+                    fit: BoxFit.cover,
+                    width: widget.radius,
+                    height: widget.radius,
+                  )
+                : AuthRecordAvatar(
+                    websiteUri: widget.imgUrl,
+                    radius: widget.radius,
+                  ),
+          ),
+          Container(
+            margin: EdgeInsets.symmetric(vertical: 5.0),
+            child: Text(
+              widget.name ?? "Unknown",
+              style: Theme.of(context).textTheme.bodyText1,
             ),
           ),
-          child: AuthRecordAvatar(
-            websiteUri: widget.imgUrl,
-            radius: widget.radius,
-          ),
-        ),
-        Container(
-          margin: EdgeInsets.symmetric(vertical: 10.0),
-          child: Text(
-            widget.name ?? "Unknown",
-            style: Theme.of(context).textTheme.bodyText1,
-          ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }

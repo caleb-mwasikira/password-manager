@@ -4,28 +4,22 @@ import 'package:password_manager/entities/enums.dart';
 ///
 /// All records must have a unique id, type, userID of their owner, createdAt
 /// and expiresAt time periods.
-class Record {
+abstract class Record {
   final String id;
   final RecordType recordType;
   String? keyID;
   String userID;
-  final String vaultID;
   Map<String, dynamic>? category;
-  List? groups;
   EncryptionType? encryptionType;
   final DateTime createdAt;
-  DateTime? expiresAt;
 
   Record({
     required this.id,
     required this.recordType,
     this.keyID,
     required this.userID,
-    required this.vaultID,
     this.category,
-    this.groups,
     this.encryptionType,
     required this.createdAt,
-    this.expiresAt,
   });
 }

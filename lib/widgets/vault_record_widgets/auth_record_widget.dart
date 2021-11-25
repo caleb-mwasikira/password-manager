@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:line_icons/line_icons.dart';
-import 'package:favicon/favicon.dart' as Fav;
+// import 'package:favicon/favicon.dart' as Fav;
 
 import 'package:password_manager/widgets/avatars/auth_record_avatar.dart';
 import 'package:password_manager/themes/app_theme_data.dart';
@@ -11,11 +11,13 @@ import 'package:password_manager/entities/auth_record.dart';
 class AuthRecordWidget extends StatefulWidget {
   final AuthRecord authRecord;
   final bool isSelected;
+  final Color selectedColor;
 
   AuthRecordWidget({
     Key? key,
     required this.authRecord,
     this.isSelected = false,
+    this.selectedColor = Colors.white,
   }) : super(key: key);
 
   @override
@@ -30,7 +32,7 @@ class _AuthRecordWidgetState extends State<AuthRecordWidget> {
       child: Column(
         children: [
           Container(
-            margin: EdgeInsets.only(bottom: 5.0),
+            margin: EdgeInsets.only(bottom: 20.0),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -87,7 +89,7 @@ class _AuthRecordWidgetState extends State<AuthRecordWidget> {
                     icon: Icon(
                       LineIcons.horizontalEllipsis,
                       color: widget.isSelected
-                          ? AppThemeData.whiteColor
+                          ? Colors.white
                           : AppThemeData.textColor,
                     ),
                   ),
@@ -95,25 +97,25 @@ class _AuthRecordWidgetState extends State<AuthRecordWidget> {
               ],
             ),
           ),
-          Container(
-            margin: EdgeInsets.only(left: 55.0),
-            child: TextFormField(
-              enabled: false,
-              initialValue: widget.authRecord.password,
-              readOnly: true,
-              obscureText: true,
-              showCursor: false,
-              style: widget.isSelected
-                  ? Theme.of(context)
-                      .textTheme
-                      .bodyText1
-                      ?.copyWith(color: Colors.white)
-                  : Theme.of(context).textTheme.bodyText1,
-              decoration: InputDecoration(
-                border: InputBorder.none,
-              ),
-            ),
-          ),
+          // Container(
+          //   margin: EdgeInsets.only(left: 55.0),
+          //   child: TextFormField(
+          //     enabled: false,
+          //     initialValue: widget.authRecord.password,
+          //     readOnly: true,
+          //     obscureText: true,
+          //     showCursor: false,
+          //     style: widget.isSelected
+          //         ? Theme.of(context)
+          //             .textTheme
+          //             .bodyText1
+          //             ?.copyWith(color: Colors.white)
+          //         : Theme.of(context).textTheme.bodyText1,
+          //     decoration: InputDecoration(
+          //       border: InputBorder.none,
+          //     ),
+          //   ),
+          // ),
         ],
       ),
     );

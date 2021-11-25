@@ -3,7 +3,6 @@ import 'package:file_picker/file_picker.dart';
 import 'package:line_icons/line_icons.dart';
 
 import 'package:password_manager/data/app_data.dart';
-import 'package:password_manager/entities/user.dart';
 import 'package:password_manager/widgets/action_button.dart';
 import 'package:password_manager/widgets/avatars/user_photo.dart';
 import 'package:password_manager/themes/app_theme_data.dart';

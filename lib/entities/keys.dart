@@ -2,7 +2,7 @@ import 'dart:typed_data';
 
 import 'package:password_manager/entities/enums.dart';
 
-class Key {
+abstract class Key {
   final String id;
   String? desc;
   final EncryptionType keyType;

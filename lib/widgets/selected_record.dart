@@ -12,12 +12,17 @@ class SelectedRecord extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Flexible(
+      flex: 3,
       child: Container(
-        padding: EdgeInsets.all(20.0),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
             RecentRecords(),
+            Flexible(
+              child: Column(
+                children: [],
+              ),
+            ),
           ],
         ),
       ),

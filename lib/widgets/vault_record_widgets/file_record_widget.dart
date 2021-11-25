@@ -5,7 +5,6 @@ import 'package:line_icons/line_icons.dart';
 import 'package:password_manager/entities/enums.dart';
 import 'package:password_manager/entities/file_record.dart';
 import 'package:password_manager/themes/app_theme_data.dart';
-import 'package:password_manager/utils/utils.dart';
 import 'package:password_manager/widgets/avatars/file_record_avatar.dart';
 import 'package:password_manager/utils/enum_extension.dart';
 
@@ -118,24 +117,24 @@ class _FileRecordWidgetState extends State<FileRecordWidget> {
                         ),
                       )
                     : Container(),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.end,
-                  children: [
-                    Text(
-                      "Created At",
-                      style: widget.isSelected
-                          ? Theme.of(context)
-                              .textTheme
-                              .bodyText2
-                              ?.copyWith(color: Colors.white)
-                          : Theme.of(context).textTheme.bodyText2,
-                    ),
-                    Text(
-                      dateTimeToString(widget.fileRecord.createdAt),
-                      style: onHoverTextStyle(),
-                    ),
-                  ],
-                )
+                // Column(
+                //   crossAxisAlignment: CrossAxisAlignment.end,
+                //   children: [
+                //     Text(
+                //       "Created At",
+                //       style: widget.isSelected
+                //           ? Theme.of(context)
+                //               .textTheme
+                //               .bodyText2
+                //               ?.copyWith(color: Colors.white)
+                //           : Theme.of(context).textTheme.bodyText2,
+                //     ),
+                //     Text(
+                //       dateTimeToString(widget.fileRecord.createdAt),
+                //       style: onHoverTextStyle(),
+                //     ),
+                //   ],
+                // )
               ],
             ),
           )

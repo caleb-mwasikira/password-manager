@@ -1,6 +1,8 @@
 import 'dart:convert';
 import 'package:flutter/services.dart';
 import 'package:line_icons/line_icons.dart';
+import 'package:password_manager/entities/auth_record.dart';
+import 'package:password_manager/entities/record.dart';
 import 'package:uuid/uuid.dart';
 
 import 'package:password_manager/widgets/gallery/gallery_item.dart';
@@ -27,9 +29,9 @@ class AppData {
 
   static User currentUser = User(
     id: Uuid().v1(),
-    username: "Rose Poole",
-    email: "rosepoole@gmail.com",
-    password: "rosepoole",
+    username: "Anon",
+    email: "anonymous@wesbite.com",
+    password: "anon",
     vault: [],
   );
 
@@ -38,9 +40,8 @@ class AppData {
         name: "School", imgUrl: "assets/images/categories/backpack.png"),
     GalleryItem(
         name: "Entertainment", imgUrl: "assets/images/categories/console.png"),
-    GalleryItem(name: "Wallet", imgUrl: "assets/images/categories/wallet.png"),
     GalleryItem(
-        name: "Hospital", imgUrl: "assets/images/categories/medicine.png"),
+        name: "Wallet", imgUrl: "assets/images/categories/piggy_bank.png"),
   ];
 
   static Future<List<String>> fetchAssetImages({

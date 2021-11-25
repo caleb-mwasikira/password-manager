@@ -33,25 +33,31 @@ class _AuthRecordAvatarState extends State<AuthRecordAvatar> {
   }
 
   void fetchWebsiteIcon(String uri) async {
-    Fav.Icon? iconUrl =
-        await Fav.Favicon.getBest(uri, suffixes: ['png', 'ico']);
-    if (this.mounted) {
-      setState(() {
-        websiteIcon = iconUrl?.url;
-      });
+    try {
+      Fav.Icon? iconUrl =
+          await Fav.Favicon.getBest(uri, suffixes: ['png', 'ico']);
+      if (this.mounted) {
+        setState(() {
+          websiteIcon = iconUrl?.url;
+        });
+      }
+    } catch (_) {
+      print('Failed to fetch website icon from $uri');
     }
   }
 
-  final Widget recordAvatarErr = Tooltip(
-    message: "Failed to load website icon",
-    child: Center(
-      child: Icon(
-        LineIcons.bug,
-        size: AppThemeData.iconsSizeMedium,
-        color: Colors.grey,
+  Widget recordAvatarErr() {
+    return Center(
+      child: Tooltip(
+        message: "Failed to load website icon",
+        child: Icon(
+          LineIcons.bug,
+          size: AppThemeData.iconsSizeMedium,
+          color: Colors.grey,
+        ),
       ),
-    ),
-  );
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -59,6 +65,7 @@ class _AuthRecordAvatarState extends State<AuthRecordAvatar> {
       margin: EdgeInsets.symmetric(horizontal: 15.0),
       elevation: 4.0,
       shape: CircleBorder(),
+      clipBehavior: Clip.hardEdge,
       child: Container(
         width: widget.radius,
         height: widget.radius,
@@ -74,10 +81,10 @@ class _AuthRecordAvatarState extends State<AuthRecordAvatar> {
                   );
                 },
                 errorWidget: (context, url, error) {
-                  return recordAvatarErr;
+                  return recordAvatarErr();
                 },
               )
-            : recordAvatarErr,
+            : recordAvatarErr(),
       ),
     );
   }

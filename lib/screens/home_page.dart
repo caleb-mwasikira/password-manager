@@ -14,24 +14,24 @@ import 'package:password_manager/widgets/vault_records.dart';
 import 'package:password_manager/widgets/selected_record.dart';
 import 'package:password_manager/utils/enum_extension.dart';
 
-class VaultPage extends StatefulWidget {
+class HomePage extends StatefulWidget {
   final String title = AppData.appName;
 
-  VaultPage({Key? key}) : super(key: key);
+  HomePage({Key? key}) : super(key: key);
 
   @override
-  _VaultPageState createState() => _VaultPageState();
+  _HomePageState createState() => _HomePageState();
 }
 
-class _VaultPageState extends State<VaultPage> {
+class _HomePageState extends State<HomePage> {
   late List<MenuItem> menuItems;
   CustomPopupMenuController _controller = CustomPopupMenuController();
 
   @override
   void initState() {
     menuItems = [
-      MenuItem(title: RecordType.AUTH.value, icon: LineIcons.keycdn),
-      MenuItem(title: RecordType.FILES.value, icon: LineIcons.copy),
+      MenuItem(title: RecordType.AUTH.value, icon: LineIcons.userCircle),
+      MenuItem(title: RecordType.FILES.value, icon: LineIcons.fileAlt),
     ];
 
     super.initState();
@@ -86,8 +86,8 @@ class _VaultPageState extends State<VaultPage> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  SelectedRecord(),
                   VaultRecords(),
+                  SelectedRecord(),
                 ],
               ),
             ),
@@ -113,18 +113,9 @@ class _VaultPageState extends State<VaultPage> {
             context: context,
             builder: (BuildContext context) {
               return AlertDialog(
-                title: Center(
-                  child: Container(
-                    margin: EdgeInsets.symmetric(vertical: 10.0),
-                    child: Text(
-                      "Create New Record",
-                      style: Theme.of(context).textTheme.headline1,
-                    ),
-                  ),
-                ),
                 content: CreateNewRecord(
                   recordType: RecordType.values
-                      .firstWhere((e) => e.toString() == menuItem.title),
+                      .firstWhere((e) => e.value == menuItem.title),
                   onComplete: () {
                     print('creating a new vault account');
                   },

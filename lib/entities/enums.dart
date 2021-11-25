@@ -6,6 +6,7 @@ enum RecordType {
 enum EncryptionType {
   AES_256,
   RSA,
+  NONE, // For cases where data is in plaintext
 }
 
 enum FileType {

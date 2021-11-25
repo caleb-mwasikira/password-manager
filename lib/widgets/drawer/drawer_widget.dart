@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:line_icons/line_icons.dart';
 
 import 'package:password_manager/data/app_data.dart';
 import 'package:password_manager/entities/drawer_item.dart';

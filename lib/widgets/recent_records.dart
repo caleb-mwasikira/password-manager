@@ -4,7 +4,6 @@ import 'package:password_manager/data/app_data.dart';
 import 'package:password_manager/entities/auth_record.dart';
 import 'package:password_manager/entities/enums.dart';
 import 'package:password_manager/entities/file_record.dart';
-import 'package:password_manager/utils/utils.dart';
 import 'package:password_manager/widgets/gallery/gallery.dart';
 import 'package:password_manager/widgets/gallery/gallery_item.dart';
 
@@ -20,10 +19,9 @@ class _RecentRecordsState extends State<RecentRecords> {
 
   @override
   void initState() {
-    Future<List> _recentRecords =
-        AppData.fetchAssetData(dataDir: 'assets/data/records.json', limit: 5);
     setState(() {
-      recentRecords = _recentRecords;
+      recentRecords =
+          AppData.fetchAssetData(dataDir: 'assets/data/records.json', limit: 5);
     });
 
     super.initState();
@@ -61,6 +59,7 @@ class _RecentRecordsState extends State<RecentRecords> {
                     galleryTitle: "Recently Viewed",
                     shape: BoxShape.rectangle,
                     isMutable: false,
+                    height: 200.0,
                     items: _recentRecords.map(
                       (_recentRecord) {
                         if (_recentRecord['record_type'] == "AUTH") {

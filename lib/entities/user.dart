@@ -4,7 +4,6 @@ class User {
   String email;
   String password;
   String? profilePic;
-  List<String>? groups;
   List<Map<String, dynamic>>? keys;
   List<Map<String, dynamic>?> vault;
 
@@ -14,9 +13,8 @@ class User {
     required this.email,
     required this.password,
     this.profilePic,
-    this.groups,
     this.keys,
-    required this.vault,
+    this.vault = const [],
   });
 
   factory User.fromJson(Map<String, dynamic> json) {
@@ -26,7 +24,6 @@ class User {
       email: json['email'],
       password: json['password'],
       profilePic: json['profile_pic'],
-      groups: json['groups'],
       keys: json['keys'],
       vault: json['vault'],
     );
@@ -39,7 +36,6 @@ class User {
       'email': email,
       'password': password,
       'profile_pic': profilePic,
-      'groups': groups,
       'keys': keys,
       'vault': vault,
     };

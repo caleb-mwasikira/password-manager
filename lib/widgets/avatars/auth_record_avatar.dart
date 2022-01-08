@@ -1,8 +1,11 @@
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:favicon/favicon.dart' as Fav;
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:line_icons/line_icons.dart';
+import 'package:network_to_file_image/network_to_file_image.dart';
+import 'package:path/path.dart' as path;
 
+import 'package:password_manager/controllers/app_data.dart';
 import 'package:password_manager/themes/app_theme_data.dart';
 
 // ignore: must_be_immutable
@@ -10,52 +13,94 @@ class AuthRecordAvatar extends StatefulWidget {
   final String? websiteUri;
   final double radius;
 
+  final BoxShape? shape;
+
   AuthRecordAvatar({
     Key? key,
     required this.websiteUri,
     this.radius = 20.0,
+    this.shape = BoxShape.circle,
   }) : super(key: key);
 
   @override
-  _AuthRecordAvatarState createState() => _AuthRecordAvatarState();
+  State<AuthRecordAvatar> createState() => _AuthRecordAvatarState();
 }
 
 class _AuthRecordAvatarState extends State<AuthRecordAvatar> {
-  String? websiteIcon;
+  late String iconsStorageDir;
+  late Future<String?> websiteIcon;
 
   @override
   void initState() {
-    if (widget.websiteUri != null) {
-      fetchWebsiteIcon(widget.websiteUri!);
-    }
+    WidgetsBinding.instance?.addPostFrameCallback((_) async {
+      String _iconsStorageDir = await AppData.appIconsDir;
+
+      setState(() {
+        iconsStorageDir = _iconsStorageDir;
+      });
+    });
+
+    setState(() {
+      websiteIcon = _fetchWebsiteIcon(widget.websiteUri);
+    });
 
     super.initState();
   }
 
-  void fetchWebsiteIcon(String uri) async {
+  Future<String?> _fetchWebsiteIcon(String? uri) async {
     try {
+      if (uri == null)
+        throw Exception('Cannot fetch website icon from a null URL');
+
+      print('Fetching website icon from URL $uri');
       Fav.Icon? iconUrl =
           await Fav.Favicon.getBest(uri, suffixes: ['png', 'ico']);
-      if (this.mounted) {
-        setState(() {
-          websiteIcon = iconUrl?.url;
-        });
-      }
+      return iconUrl?.url;
     } catch (_) {
       print('Failed to fetch website icon from $uri');
+      return null;
     }
   }
 
-  Widget recordAvatarErr() {
+  File _iconsDir(String filename) {
+    String pathName = path.join(iconsStorageDir, filename);
+    return File(pathName);
+  }
+
+  Widget get avatarErrorWidget {
     return Center(
-      child: Tooltip(
-        message: "Failed to load website icon",
-        child: Icon(
-          LineIcons.bug,
-          size: AppThemeData.iconsSizeMedium,
-          color: Colors.grey,
+      child: Icon(
+        LineIcons.alternateFire,
+        size: AppThemeData.iconsSizeMedium,
+        color: Colors.grey,
+      ),
+    );
+  }
+
+  Widget get avatarLoadingWidget {
+    return Center(
+      child: Container(
+        width: 25.0,
+        height: 25.0,
+        child: CircularProgressIndicator(
+          strokeWidth: 2.0,
         ),
       ),
+    );
+  }
+
+  Widget avatarImage(String websiteIcon) {
+    String fileName = Uri.parse(websiteIcon)
+        .host
+        .split('.')[1]; // from www.google.com we take google
+
+    return Image(
+      image: NetworkToFileImage(
+        url: websiteIcon,
+        file: _iconsDir(fileName),
+        debug: true,
+      ),
+      errorBuilder: (context, error, stackTrace) => avatarErrorWidget,
     );
   }
 
@@ -64,27 +109,30 @@ class _AuthRecordAvatarState extends State<AuthRecordAvatar> {
     return Card(
       margin: EdgeInsets.symmetric(horizontal: 15.0),
       elevation: 4.0,
-      shape: CircleBorder(),
+      shape: widget.shape == BoxShape.circle
+          ? CircleBorder()
+          : RoundedRectangleBorder(
+              borderRadius: AppThemeData.borderRadiusSmall),
       clipBehavior: Clip.hardEdge,
       child: Container(
         width: widget.radius,
         height: widget.radius,
         padding: EdgeInsets.all(4.0),
-        child: websiteIcon != null
-            ? CachedNetworkImage(
-                imageUrl: websiteIcon!,
-                placeholder: (BuildContext context, String url) {
-                  return Container(
-                    width: widget.radius,
-                    height: widget.radius,
-                    child: CircularProgressIndicator(strokeWidth: 1.0),
-                  );
-                },
-                errorWidget: (context, url, error) {
-                  return recordAvatarErr();
-                },
-              )
-            : recordAvatarErr(),
+        child: FutureBuilder(
+            future: websiteIcon,
+            builder: (BuildContext context, AsyncSnapshot snapshot) {
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return avatarLoadingWidget;
+              } else if (snapshot.hasData) {
+                String? _websiteIcon = snapshot.data;
+
+                return _websiteIcon != null
+                    ? avatarImage(_websiteIcon)
+                    : avatarErrorWidget;
+              } else {
+                return avatarErrorWidget;
+              }
+            }),
       ),
     );
   }

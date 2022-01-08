@@ -1,14 +1,14 @@
-import 'package:password_manager/entities/enums.dart';
+import 'package:password_manager/utils/enums.dart';
 
-extension RecordTypeValue on RecordType {
+extension RecordTypeExt on RecordType {
   String get value => this.toString().split('.').last;
 }
 
-extension EncryptionTypeValue on EncryptionType {
+extension EncryptionTypeExt on EncryptionType {
   String get value => this.toString().split('.').last;
 }
 
-extension FileTypeToList on FileType {
+extension FileTypeExt on FileType {
   List<String> get list {
     switch (this) {
       case FileType.AUDIO:

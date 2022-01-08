@@ -1,11 +1,25 @@
-class User {
+import 'package:hive/hive.dart';
+
+import 'package:password_manager/controllers/hive_boxes.dart';
+
+part 'user.g.dart';
+
+@HiveType(typeId: HiveBoxes.USERS_TYPEID)
+class User extends HiveObject {
+  @HiveField(0)
   final String id;
-  String username;
+  @HiveField(1)
+  String? username;
+  @HiveField(2)
   String email;
+  @HiveField(3)
   String password;
+  @HiveField(4)
   String? profilePic;
-  List<Map<String, dynamic>>? keys;
-  List<Map<String, dynamic>?> vault;
+  @HiveField(5)
+  String? vaultID;
+  @HiveField(6)
+  List<String>? keyIDs;
 
   User({
     required this.id,
@@ -13,8 +27,8 @@ class User {
     required this.email,
     required this.password,
     this.profilePic,
-    this.keys,
-    this.vault = const [],
+    this.vaultID,
+    this.keyIDs,
   });
 
   factory User.fromJson(Map<String, dynamic> json) {
@@ -24,8 +38,8 @@ class User {
       email: json['email'],
       password: json['password'],
       profilePic: json['profile_pic'],
-      keys: json['keys'],
-      vault: json['vault'],
+      vaultID: json['vault_id'],
+      keyIDs: json['key_ids'],
     );
   }
 
@@ -36,8 +50,8 @@ class User {
       'email': email,
       'password': password,
       'profile_pic': profilePic,
-      'keys': keys,
-      'vault': vault,
+      'vault_id': vaultID,
+      'key_ids': keyIDs,
     };
   }
 }

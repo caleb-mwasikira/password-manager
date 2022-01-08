@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
 
-import 'package:password_manager/entities/enums.dart';
+import 'package:password_manager/utils/enums.dart';
 import 'package:password_manager/themes/app_theme_data.dart';
-import 'package:password_manager/widgets/avatars/auth_record_avatar.dart';
-import 'package:password_manager/widgets/gallery/gallery_item.dart';
 
-class CircularGalleryItem extends StatefulWidget implements GalleryItem {
-  final String? name;
-  final String? imgUrl;
+class CircularGalleryItem extends StatefulWidget {
+  final String name;
+  final String imgUrl;
   final RecordType? recordType;
 
   final double radius;
@@ -18,7 +16,7 @@ class CircularGalleryItem extends StatefulWidget implements GalleryItem {
     required this.name,
     required this.imgUrl,
     this.recordType,
-    this.radius = 30.0,
+    this.radius = 40.0,
     this.isSelected = false,
     this.isAssetImage = false,
   }) : super(key: key);
@@ -38,31 +36,47 @@ class _CircularGalleryItemState extends State<CircularGalleryItem> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Container(
-            padding: EdgeInsets.all(2.0),
-            decoration: BoxDecoration(
-              shape: BoxShape.circle,
-              border: Border.all(
-                color: widget.isSelected ? selectedColor : Colors.transparent,
-                width: 2.0,
+              padding: EdgeInsets.all(2.0),
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                border: Border.all(
+                  color: widget.isSelected ? selectedColor : Colors.transparent,
+                  width: 2.0,
+                ),
               ),
-            ),
-            child: widget.isAssetImage && widget.imgUrl != null
-                ? Image.asset(
-                    widget.imgUrl!,
-                    fit: BoxFit.cover,
-                    width: widget.radius,
-                    height: widget.radius,
-                  )
-                : AuthRecordAvatar(
-                    websiteUri: widget.imgUrl,
-                    radius: widget.radius,
-                  ),
-          ),
+              child: widget.isAssetImage
+                  ? ClipRRect(
+                      borderRadius: AppThemeData.borderRadiusLarge,
+                      child: Image.asset(
+                        widget.imgUrl,
+                        fit: BoxFit.contain,
+                        width: widget.radius,
+                        height: widget.radius,
+                      ),
+                    )
+                  : Card(
+                      margin: EdgeInsets.symmetric(horizontal: 15.0),
+                      elevation: 4.0,
+                      shape: CircleBorder(),
+                      clipBehavior: Clip.hardEdge,
+                      child: Container(
+                        width: widget.radius,
+                        height: widget.radius,
+                        padding: EdgeInsets.all(4.0),
+                        child: Image.network(
+                          widget.imgUrl,
+                          fit: BoxFit.contain,
+                        ),
+                      ),
+                    )),
           Container(
             margin: EdgeInsets.symmetric(vertical: 5.0),
             child: Text(
-              widget.name ?? "Unknown",
-              style: Theme.of(context).textTheme.bodyText1,
+              widget.name,
+              style: Theme.of(context).textTheme.bodyText1?.copyWith(
+                  color: widget.isSelected
+                      ? selectedColor
+                      : AppThemeData.textColor),
             ),
           ),
         ],

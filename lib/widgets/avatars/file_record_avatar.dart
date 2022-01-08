@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:line_icons/line_icons.dart';
 
-import 'package:password_manager/entities/enums.dart';
+import 'package:password_manager/utils/enums.dart';
 import 'package:password_manager/themes/app_theme_data.dart';
 
 class FileRecordAvatar extends StatelessWidget {
@@ -37,7 +37,7 @@ class FileRecordAvatar extends StatelessWidget {
         _fileIcon = LineIcons.codeFile;
         break;
       default:
-        _fileIcon = LineIcons.pdfFile;
+        _fileIcon = LineIcons.alternateFile;
     }
 
     return _fileIcon;

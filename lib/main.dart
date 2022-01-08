@@ -1,39 +1,53 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:window_size/window_size.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 
-import 'package:password_manager/screens/auth/signin_page.dart';
-import 'package:password_manager/screens/auth/signup_page.dart';
-import 'package:password_manager/screens/home_page.dart';
-import 'package:password_manager/data/app_data.dart';
-import 'package:password_manager/themes/app_theme_data.dart';
+import 'package:password_manager/widgets/my_app.dart';
+import 'package:password_manager/controllers/vault_records_controller.dart';
+import 'package:password_manager/controllers/auth_controller.dart';
+import 'package:password_manager/controllers/hive_boxes.dart';
+import 'package:password_manager/controllers/app_data.dart';
+import 'package:password_manager/models/user.dart';
+import 'package:password_manager/models/auth_record.dart';
+import 'package:password_manager/models/file_record.dart';
 
-void main() {
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   if (Platform.isWindows || Platform.isLinux || Platform.isMacOS) {
-    setWindowTitle(AppData.appName);
+    setWindowTitle(AppData.APPNAME);
     setWindowMinSize(Size(900, 700));
     setWindowMaxSize(Size(900, 700));
   }
 
-  runApp(MyApp());
-}
+  await Hive.initFlutter(await AppData.appStorageDir);
+  Hive
+    ..registerAdapter(AuthRecordAdapter())
+    ..registerAdapter(FileRecordAdapter())
+    ..registerAdapter(UserAdapter());
 
-class MyApp extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    final ThemeData themeData = AppThemeData().theme;
+  await Hive.openBox<AuthRecord>(HiveBoxes.authRecords);
+  await Hive.openBox<FileRecord>(HiveBoxes.fileRecords);
+  await Hive.openBox<User>(HiveBoxes.users);
 
-    return MaterialApp(
-      title: AppData.appName,
-      debugShowCheckedModeBanner: false,
-      theme: themeData,
-      initialRoute: '/',
-      routes: {
-        '/': (BuildContext context) => HomePage(),
-        '/signin': (BuildContext context) => SignInPage(),
-        '/signup': (BuildContext context) => SignUpPage(),
-      },
-    );
-  }
+  runApp(
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(
+          create: (context) => VaultRecordsController(
+            recordBoxes: [
+              Hive.box<AuthRecord>(HiveBoxes.authRecords),
+              Hive.box<FileRecord>(HiveBoxes.fileRecords)
+            ],
+          ),
+        ),
+        ChangeNotifierProvider(
+          create: (context) =>
+              AuthController(usersBox: Hive.box<User>(HiveBoxes.users)),
+        )
+      ],
+      child: MyApp(),
+    ),
+  );
 }

@@ -1,18 +1,20 @@
 import 'package:flutter/material.dart';
 
+import 'package:password_manager/entities/drawer_item.dart';
 import 'package:password_manager/themes/app_theme_data.dart';
 
 // ignore: must_be_immutable
 class DrawerItemWidget extends StatefulWidget {
-  final IconData iconData;
-  final String name;
-  final Function onTap;
+  final DrawerItem drawerItem;
+
+  final double marginVertical;
+  final double marginHorizontal;
 
   DrawerItemWidget({
     Key? key,
-    required this.iconData,
-    required this.name,
-    required this.onTap,
+    required this.drawerItem,
+    this.marginVertical = 5.0,
+    this.marginHorizontal = 20.0,
   }) : super(key: key);
 
   @override
@@ -21,57 +23,72 @@ class DrawerItemWidget extends StatefulWidget {
 
 class _DrawerItemWidgetState extends State<DrawerItemWidget> {
   bool onHover = false;
+  bool get isDisabled => widget.drawerItem.isDisabled;
 
   @override
   Widget build(BuildContext context) {
     return Container(
       clipBehavior: Clip.hardEdge,
       margin: EdgeInsets.symmetric(
-        vertical: 10.0,
-        horizontal: 20.0,
+        vertical: widget.marginVertical,
+        horizontal: widget.marginHorizontal,
       ),
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.all(Radius.circular(20.0)),
+        borderRadius: BorderRadius.all(
+          Radius.circular(20.0),
+        ),
       ),
-      child: InkWell(
-        hoverColor: Colors.lightBlueAccent,
-        focusColor: Colors.lightBlue,
-        onTap: () {
-          widget.onTap();
-        },
-        onHover: (value) {
-          setState(() {
-            onHover = value;
-          });
-        },
-        borderRadius: BorderRadius.all(Radius.circular(20.0)),
-        child: Container(
-          padding: EdgeInsets.all(12.0),
-          child: Row(
-            children: <Widget>[
-              Container(
-                margin: EdgeInsets.symmetric(horizontal: 20.0),
-                child: Icon(
-                  widget.iconData,
-                  size: AppThemeData.iconsSizeMedium,
-                  color: onHover
-                      ? AppThemeData.whiteColor
-                      : AppThemeData.textColor,
+      child: Tooltip(
+        message: isDisabled ? "Not Yet Implemented" : "",
+        child: InkWell(
+          hoverColor:
+              isDisabled ? AppThemeData.textColor : Colors.lightBlueAccent,
+          focusColor: isDisabled ? AppThemeData.textColor : Colors.lightBlue,
+          mouseCursor: isDisabled
+              ? SystemMouseCursors.forbidden
+              : SystemMouseCursors.click,
+          onTap: () {
+            if (!widget.drawerItem.isDisabled) {
+              widget.drawerItem.onTap(context);
+            } else {
+              print(
+                  "DrawerWidget ${widget.drawerItem.name} is currently disabled");
+            }
+          },
+          onHover: (value) {
+            setState(() {
+              onHover = value;
+            });
+          },
+          borderRadius: AppThemeData.borderRadiusLarge,
+          child: Container(
+            padding: EdgeInsets.all(10.0),
+            child: Row(
+              children: <Widget>[
+                Container(
+                  margin: EdgeInsets.symmetric(horizontal: 20.0),
+                  child: Icon(
+                    widget.drawerItem.icon,
+                    size: AppThemeData.iconsSizeMedium,
+                    color: onHover
+                        ? AppThemeData.whiteColor
+                        : AppThemeData.textColor,
+                  ),
                 ),
-              ),
-              Container(
-                margin: EdgeInsets.symmetric(horizontal: 20.0),
-                child: Text(
-                  widget.name,
-                  style: onHover
-                      ? Theme.of(context)
-                          .textTheme
-                          .headline3
-                          ?.copyWith(color: Colors.white)
-                      : Theme.of(context).textTheme.headline3,
+                Container(
+                  margin: EdgeInsets.symmetric(horizontal: 20.0),
+                  child: Text(
+                    widget.drawerItem.name,
+                    style: onHover
+                        ? Theme.of(context)
+                            .textTheme
+                            .headline3
+                            ?.copyWith(color: Colors.white)
+                        : Theme.of(context).textTheme.headline3,
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),

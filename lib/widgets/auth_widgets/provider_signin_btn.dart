@@ -15,7 +15,7 @@ class ProviderSignInBtn extends StatefulWidget {
     required this.providerIcon,
     required this.onBtnPressed,
     this.providerColor,
-    this.width = 300.0,
+    this.width = 250.0,
   }) : super(key: key);
 
   @override
@@ -36,7 +36,7 @@ class _ProviderSignInBtnState extends State<ProviderSignInBtn> {
           Colors.white,
         ),
         fixedSize: MaterialStateProperty.all<Size>(
-          Size(widget.width, 50.0),
+          Size(widget.width, 45.0),
         ),
         shape: MaterialStateProperty.all<RoundedRectangleBorder>(
           RoundedRectangleBorder(
@@ -47,29 +47,24 @@ class _ProviderSignInBtnState extends State<ProviderSignInBtn> {
       child: Container(
         width: widget.width,
         child: Container(
-          padding: EdgeInsets.all(12.0),
+          padding: EdgeInsets.symmetric(vertical: 10.0),
           child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              Container(
-                margin: EdgeInsets.symmetric(horizontal: 20.0),
-                child: Icon(
-                  widget.providerIcon,
-                  size: AppThemeData.iconsSizeMedium,
-                  color:
-                      onHover ? AppThemeData.whiteColor : widget.providerColor,
-                ),
+              Icon(
+                widget.providerIcon,
+                size: AppThemeData.iconsSizeMedium,
+                color: onHover ? AppThemeData.whiteColor : widget.providerColor,
               ),
-              Container(
-                margin: EdgeInsets.symmetric(horizontal: 10.0),
-                child: Text(
-                  widget.providerTitle,
-                  style: onHover
-                      ? Theme.of(context)
-                          .textTheme
-                          .headline3
-                          ?.copyWith(color: Colors.white)
-                      : Theme.of(context).textTheme.headline3,
-                ),
+              SizedBox(width: 20.0),
+              Text(
+                widget.providerTitle,
+                style: onHover
+                    ? Theme.of(context)
+                        .textTheme
+                        .headline3
+                        ?.copyWith(color: Colors.white)
+                    : Theme.of(context).textTheme.headline3,
               ),
             ],
           ),

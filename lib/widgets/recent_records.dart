@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
-import 'package:password_manager/data/app_data.dart';
-import 'package:password_manager/entities/auth_record.dart';
-import 'package:password_manager/entities/enums.dart';
-import 'package:password_manager/entities/file_record.dart';
+import 'package:password_manager/controllers/app_data.dart';
+import 'package:password_manager/models/auth_record.dart';
+import 'package:password_manager/utils/enums.dart';
+import 'package:password_manager/models/file_record.dart';
 import 'package:password_manager/widgets/gallery/gallery.dart';
-import 'package:password_manager/widgets/gallery/gallery_item.dart';
+import 'package:password_manager/entities/gallery_item.dart';
 
 class RecentRecords extends StatefulWidget {
   const RecentRecords({Key? key}) : super(key: key);
@@ -53,37 +53,39 @@ class _RecentRecordsState extends State<RecentRecords> {
                     ),
                   ),
                 )
-              : Container(
-                  padding: EdgeInsets.all(20.0),
-                  child: Gallery(
-                    galleryTitle: "Recently Viewed",
-                    shape: BoxShape.rectangle,
-                    isMutable: false,
-                    height: 200.0,
-                    items: _recentRecords.map(
-                      (_recentRecord) {
-                        if (_recentRecord['record_type'] == "AUTH") {
-                          AuthRecord authRecord =
-                              AuthRecord.fromJson(_recentRecord);
+              : Gallery(
+                  title: "Recently Viewed",
+                  name: "Recently Viewed",
+                  shape: BoxShape.rectangle,
+                  isMutable: false,
+                  height: 200.0,
+                  items: _recentRecords.map(
+                    (_recentRecord) {
+                      if (_recentRecord['record_type'] == "AUTH") {
+                        AuthRecord authRecord =
+                            AuthRecord.fromJson(_recentRecord);
 
-                          return GalleryItem(
-                            name: authRecord.websiteUrl.split('/').last,
-                            imgUrl: authRecord.websiteUrl,
-                            recordType: RecordType.AUTH,
-                          );
-                        } else {
-                          FileRecord fileRecord =
-                              FileRecord.fromJson(_recentRecord);
+                        return GalleryItem(
+                          name: authRecord.websiteUrl.split('/').last,
+                          imgUrl: authRecord.websiteUrl,
+                          recordType: RecordType.AUTH,
+                        );
+                      } else {
+                        FileRecord fileRecord =
+                            FileRecord.fromJson(_recentRecord);
 
-                          return GalleryItem(
-                            name: fileRecord.fileName,
-                            imgUrl: null,
-                            recordType: RecordType.FILES,
-                          );
-                        }
-                      },
-                    ).toList(),
-                  ),
+                        return GalleryItem(
+                          name: fileRecord.fileName,
+                          imgUrl: "",
+                          recordType: RecordType.FILES,
+                        );
+                      }
+                    },
+                  ).toList(),
+                  onSelectGalleryItem: (int selectedIndex) {
+                    print(
+                        "Selected RecentlyViewed item at index $selectedIndex");
+                  },
                 );
         }
 

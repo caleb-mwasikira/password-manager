@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:file_picker/file_picker.dart';
-import 'package:line_icons/line_icons.dart';
 
-import 'package:password_manager/data/app_data.dart';
-import 'package:password_manager/widgets/action_button.dart';
+import 'package:password_manager/controllers/app_data.dart';
+import 'package:password_manager/controllers/auth_controller.dart';
+import 'package:password_manager/models/user.dart';
 import 'package:password_manager/widgets/avatars/user_photo.dart';
 import 'package:password_manager/themes/app_theme_data.dart';
+import 'package:password_manager/widgets/gallery/gallery.dart';
+import 'package:password_manager/entities/gallery_item.dart';
+import 'package:provider/provider.dart';
 
 class EditUserPhoto extends StatefulWidget {
   const EditUserPhoto({
@@ -22,8 +24,6 @@ class _EditUserPhotoState extends State<EditUserPhoto>
   late Animation _animation;
 
   Future<List<String>>? assetImages;
-
-  String? selectedUserProfile;
 
   @override
   void initState() {
@@ -50,161 +50,90 @@ class _EditUserPhotoState extends State<EditUserPhoto>
     super.dispose();
   }
 
-  /// Lets the user select an image from their device.
-  void selectImageFromDisk() async {
-    FilePickerResult? result = await FilePicker.platform.pickFiles(
-      type: FileType.custom,
-      allowedExtensions: ['jpg', 'png', 'jpeg'],
-    );
-
-    String? selectedFile = result?.files.single.path;
-
-    if (selectedFile != null) {
-      print('selected files -> $selectedFile');
-    } else {
-      final snackBar = SnackBar(
-        backgroundColor: AppThemeData.primaryColor,
-        content: Container(
-          height: 20.0,
-          child: Center(
-            child: Text(
-              "File Selection Cancelled By User",
-              style: Theme.of(context)
-                  .textTheme
-                  .bodyText1
-                  ?.copyWith(color: Colors.white),
-            ),
-          ),
-        ),
-      );
-      ScaffoldMessenger.of(context).showSnackBar(snackBar);
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: 200,
-      height: 300,
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          InkWell(
-            splashColor: Colors.transparent,
-            hoverColor: Colors.transparent,
-            focusColor: Colors.transparent,
-            child: Container(
-              margin: EdgeInsets.symmetric(vertical: 5.0),
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                border: Border.all(
-                  color: Colors.transparent,
-                  width: _animation.value,
-                ),
-              ),
-              clipBehavior: Clip.hardEdge,
-              child: UserPhoto(
-                imgUrl: selectedUserProfile,
-                radius: 40.0,
-                isEditable: false,
-                foregroundColor: Colors.white,
-              ),
-            ),
-          ),
-          Container(
-            width: 300.0,
-            height: 150.0,
-            padding: EdgeInsets.symmetric(horizontal: 5.0, vertical: 10.0),
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: AppThemeData.borderRadius,
-            ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Container(
-                  margin:
-                      EdgeInsets.symmetric(vertical: 15.0, horizontal: 20.0),
-                  child: Text(
-                    "Select Avatar",
-                    style: Theme.of(context).textTheme.headline2,
+    return Consumer<AuthController>(
+        builder: (BuildContext context, AuthController authController, _) {
+      String? userProfile = authController.currentlyLoggedInUser?.profilePic;
+
+      return Container(
+        width: 200,
+        height: 300,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            InkWell(
+              splashColor: Colors.transparent,
+              hoverColor: Colors.transparent,
+              focusColor: Colors.transparent,
+              child: Container(
+                margin: EdgeInsets.symmetric(vertical: 5.0),
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  border: Border.all(
+                    color: Colors.transparent,
+                    width: _animation.value,
                   ),
                 ),
-                FutureBuilder(
-                    future: assetImages,
-                    builder: (BuildContext context,
-                        AsyncSnapshot<List<String>> snapshot) {
-                      if (snapshot.hasData) {
-                        final List<String> assetImages = snapshot.data!;
-
-                        return Container(
-                          height: 50.0,
-                          margin: EdgeInsets.symmetric(horizontal: 10.0),
-                          child: ListView.builder(
-                            itemCount: assetImages.length,
-                            scrollDirection: Axis.horizontal,
-                            itemBuilder: (BuildContext context, int index) {
-                              String assetImage = assetImages[index];
-
-                              return Row(
-                                children: [
-                                  Container(
-                                    margin:
-                                        EdgeInsets.symmetric(horizontal: 10.0),
-                                    child: InkWell(
-                                      onTap: () {
-                                        print(
-                                            'selected user photo $assetImage');
-                                        setState(() {
-                                          selectedUserProfile = assetImage;
-                                        });
-                                      },
-                                      child: UserPhoto(
-                                        imgUrl: assetImage,
-                                        radius: 20.0,
-                                        isEditable: false,
-                                      ),
-                                    ),
-                                  ),
-
-                                  /// If the index is the last one in the list, display the selectImageFromDiskBtn
-                                  index == assetImages.length - 1
-                                      ? Center(
-                                          child: ActionButton(
-                                            radius: 50.0,
-                                            margin: EdgeInsets.all(10.0),
-                                            child: IconButton(
-                                              onPressed: () {
-                                                selectImageFromDisk();
-                                              },
-                                              padding: EdgeInsets.zero,
-                                              iconSize:
-                                                  AppThemeData.iconsSizeMedium,
-                                              icon: Icon(
-                                                LineIcons.plus,
-                                                color:
-                                                    AppThemeData.primaryColor,
-                                              ),
-                                            ),
-                                          ),
-                                        )
-                                      : SizedBox.shrink()
-                                ],
-                              );
-                            },
-                          ),
-                        );
-                      }
-
-                      return Center(
-                        child: CircularProgressIndicator(),
-                      );
-                    }),
-              ],
+                clipBehavior: Clip.hardEdge,
+                child: UserPhoto(
+                  imgUrl: userProfile,
+                  radius: 40.0,
+                  isEditable: false,
+                  foregroundColor: Colors.white,
+                ),
+              ),
             ),
-          )
-        ],
-      ),
-    );
+            Container(
+              width: 300.0,
+              height: 150.0,
+              padding: EdgeInsets.symmetric(horizontal: 5.0, vertical: 10.0),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: AppThemeData.borderRadiusSmall,
+              ),
+              child: FutureBuilder(
+                future: assetImages,
+                builder: (BuildContext context,
+                    AsyncSnapshot<List<String>> snapshot) {
+                  if (snapshot.hasData) {
+                    final List<String> assetImages = snapshot.data!;
+
+                    return Gallery(
+                      title: "Select Avatar",
+                      name: "Avatar",
+                      items: assetImages
+                          .map((assetImage) =>
+                              GalleryItem(name: "", imgUrl: assetImage))
+                          .toList(),
+                      galleryItemRadius: 40.0,
+                      isAssetImages: true,
+                      onSelectGalleryItem: (int index) {
+                        String? selectedUserProfile = assetImages[index];
+
+                        User? currentlyLoggedInUser =
+                            authController.currentlyLoggedInUser;
+
+                        if (currentlyLoggedInUser != null) {
+                          currentlyLoggedInUser.profilePic =
+                              selectedUserProfile;
+
+                          authController
+                              .updateLoggedInUser(currentlyLoggedInUser);
+                        }
+                      },
+                    );
+                  }
+
+                  return Center(
+                    child: CircularProgressIndicator(),
+                  );
+                },
+              ),
+            )
+          ],
+        ),
+      );
+    });
   }
 }

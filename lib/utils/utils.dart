@@ -1,4 +1,7 @@
+import 'dart:math';
 import 'package:intl/intl.dart';
+import 'package:flutter/material.dart';
+import 'package:file_picker/file_picker.dart';
 
 /// Cast dynamic variable into type T
 T? cast<T>(variableName) => variableName is T ? variableName : null;
@@ -15,6 +18,76 @@ String dateTimeToString(DateTime dateTime) {
   DateFormat dateFormatter = DateFormat('d MMM, yyyy HH:mm:ss aa');
   String parsedDateTime = dateFormatter.format(dateTime);
   return parsedDateTime;
+}
+
+SnackBar snackbarWidget(BuildContext context) {
+  return SnackBar(
+    backgroundColor: Colors.lightBlueAccent,
+    content: Container(
+      height: 20.0,
+      child: Center(
+        child: Text(
+          "File Selection Cancelled By User",
+          style: Theme.of(context)
+              .textTheme
+              .bodyText1
+              ?.copyWith(color: Colors.white),
+        ),
+      ),
+    ),
+  );
+}
+
+/// Lets the user select an image from their device.
+Future<String?> selectImageFromDisk({
+  required BuildContext context,
+}) async {
+  FilePickerResult? result = await FilePicker.platform.pickFiles(
+    type: FileType.custom,
+    allowedExtensions: ['jpg', 'png', 'jpeg'],
+  );
+
+  String? selectedFile = result?.files.single.path;
+
+  if (selectedFile == null) {
+    ScaffoldMessenger.of(context).showSnackBar(snackbarWidget(context));
+  }
+
+  return selectedFile;
+}
+
+Future<List<String?>?> selectMultipleImagesFromDisk({
+  required BuildContext context,
+}) async {
+  FilePickerResult? result = await FilePicker.platform.pickFiles(
+    type: FileType.custom,
+    allowedExtensions: ['jpg', 'png', 'jpeg'],
+    allowMultiple: true,
+  );
+
+  List<String?>? selectedFiles =
+      result?.files.map((platformFile) => platformFile.path).toList();
+
+  if (selectedFiles == null) {
+    ScaffoldMessenger.of(context).showSnackBar(snackbarWidget(context));
+  }
+
+  return selectedFiles;
+}
+
+String getRandomString(int length) {
+  const _chars =
+      'AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz1234567890!@#\$%^&*()';
+  Random _rnd = Random();
+
+  return String.fromCharCodes(
+    Iterable.generate(
+      length,
+      (_) => _chars.codeUnitAt(
+        _rnd.nextInt(_chars.length),
+      ),
+    ),
+  );
 }
 
 void main(List<String> args) {

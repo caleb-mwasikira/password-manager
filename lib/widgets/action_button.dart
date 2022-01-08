@@ -1,24 +1,35 @@
 import 'package:flutter/material.dart';
+import 'package:password_manager/themes/app_theme_data.dart';
 
+// ignore: must_be_immutable
 class ActionButton extends StatelessWidget {
-  final double radius;
-  final Color backgroundColor;
-  final bool hasShadow;
-  final BoxShape shape;
-  final EdgeInsets margin;
-  final EdgeInsets padding;
-  final Widget child;
+  final IconData iconData;
+  final double iconSize;
+  final String? tooltip;
 
-  const ActionButton({
+  final double radius;
+  final Color color;
+  final Color backgroundColor;
+  late bool hasShadow;
+  final EdgeInsets margin;
+  final BoxShape shape;
+
+  final void Function()? onPressed;
+
+  ActionButton({
     Key? key,
+    required this.iconData,
+    this.iconSize = AppThemeData.iconsSizeSmall,
+    this.tooltip,
     this.radius = 20.0,
+    this.color = AppThemeData.primaryColor,
     this.backgroundColor = Colors.white,
-    this.hasShadow = true,
-    this.shape = BoxShape.circle,
     this.margin = EdgeInsets.zero,
-    this.padding = EdgeInsets.zero,
-    required this.child,
-  }) : super(key: key);
+    this.shape = BoxShape.circle,
+    required this.onPressed,
+  }) : super(key: key) {
+    this.hasShadow = this.backgroundColor == Colors.transparent ? false : true;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -26,23 +37,30 @@ class ActionButton extends StatelessWidget {
       width: radius,
       height: radius,
       margin: margin,
-      padding: padding,
       decoration: BoxDecoration(
         color: backgroundColor,
         shape: shape,
-        boxShadow: [
-          hasShadow
-              ? BoxShadow(
+        boxShadow: hasShadow
+            ? [
+                BoxShadow(
                   color: Colors.grey.withOpacity(0.5),
                   spreadRadius: 2,
                   blurRadius: 2,
                   offset: Offset(0, 3), // changes position of shadow
                 )
-              : BoxShadow()
-        ],
+              ]
+            : [],
       ),
       child: Center(
-        child: child,
+        child: IconButton(
+          icon: Icon(iconData),
+          iconSize: iconSize,
+          tooltip: tooltip,
+          padding: EdgeInsets.zero,
+          color: color,
+          splashRadius: 20.0,
+          onPressed: onPressed,
+        ),
       ),
     );
   }

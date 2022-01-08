@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:collection/collection.dart';
 import 'package:line_icons/line_icons.dart';
 
-import 'package:password_manager/entities/enums.dart';
-import 'package:password_manager/entities/file_record.dart';
+import 'package:password_manager/utils/enums.dart';
+import 'package:password_manager/models/file_record.dart';
 import 'package:password_manager/themes/app_theme_data.dart';
 import 'package:password_manager/widgets/avatars/file_record_avatar.dart';
 import 'package:password_manager/utils/enum_extension.dart';

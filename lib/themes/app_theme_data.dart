@@ -4,9 +4,10 @@ import 'package:flutter/material.dart';
 
 class AppThemeData {
   static double borderRadiusSize = 5.0;
-  static BorderRadius borderRadius = BorderRadius.circular(borderRadiusSize);
+  static BorderRadius borderRadiusSmall =
+      BorderRadius.circular(borderRadiusSize);
   static BorderRadius borderRadiusMedium =
-      BorderRadius.circular(borderRadiusSize * 2);
+      BorderRadius.circular(borderRadiusSize * 3);
   static BorderRadius borderRadiusLarge =
       BorderRadius.circular(borderRadiusSize * 10);
 
@@ -59,16 +60,17 @@ class AppThemeData {
           color: textColor,
           fontSize: 14.0,
           fontFamily: "Roboto_Mono",
+          fontWeight: FontWeight.w400,
         ),
         bodyText1: TextStyle(
           color: textColor,
-          fontSize: 13.0,
+          fontSize: 12.0,
           fontFamily: "Roboto_Mono",
           fontWeight: FontWeight.w400,
         ),
         bodyText2: TextStyle(
           color: textColor,
-          fontSize: 12.0,
+          fontSize: 10.0,
           fontFamily: "Roboto_Mono",
           fontWeight: FontWeight.w400,
         ),

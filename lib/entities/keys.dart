@@ -1,6 +1,6 @@
 import 'dart:typed_data';
 
-import 'package:password_manager/entities/enums.dart';
+import 'package:password_manager/utils/enums.dart';
 
 abstract class Key {
   final String id;
@@ -10,17 +10,20 @@ abstract class Key {
   Key({required this.id, this.desc, required this.keyType});
 }
 
-class AsymmetricKey extends Key {
+class AsymmetricKey implements Key {
+  final String id;
+  String? desc;
+  final EncryptionType keyType;
   Uint8List idRSAPub;
   Uint8List idRSAPriv;
 
   AsymmetricKey({
-    required id,
-    desc,
-    keyType = EncryptionType.RSA,
+    required this.id,
+    this.desc,
+    this.keyType = EncryptionType.RSA,
     required this.idRSAPriv,
     required this.idRSAPub,
-  }) : super(id: id, desc: desc, keyType: keyType);
+  });
 
   factory AsymmetricKey.fromJson(Map json) {
     String _idRSAPriv = json['id_rsa_priv'];
@@ -46,17 +49,20 @@ class AsymmetricKey extends Key {
   }
 }
 
-class SymmetricKey extends Key {
+class SymmetricKey implements Key {
+  final String id;
+  String? desc;
+  final EncryptionType keyType;
   String hash;
   String salt;
 
   SymmetricKey({
-    required id,
-    desc,
-    keyType = EncryptionType.AES_256,
+    required this.id,
+    this.desc,
+    this.keyType = EncryptionType.AES_256,
     required this.hash,
     required this.salt,
-  }) : super(id: id, keyType: keyType, desc: desc);
+  });
 
   factory SymmetricKey.fromJson(Map json) {
     return SymmetricKey(

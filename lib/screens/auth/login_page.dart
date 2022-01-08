@@ -8,16 +8,16 @@ import 'package:password_manager/models/user.dart';
 import 'package:password_manager/widgets/auth_widgets/auth_form.dart';
 import 'package:provider/provider.dart';
 
-class SignUpPage extends StatefulWidget {
-  const SignUpPage({
+class LoginPage extends StatefulWidget {
+  const LoginPage({
     Key? key,
   }) : super(key: key);
 
   @override
-  _SignUpPageState createState() => _SignUpPageState();
+  _LoginPageState createState() => _LoginPageState();
 }
 
-class _SignUpPageState extends State<SignUpPage> {
+class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -44,14 +44,18 @@ class _SignUpPageState extends State<SignUpPage> {
                   return Container(
                     width: MediaQuery.of(context).size.width / 2,
                     child: AuthForm(
-                      formType: FormType.SIGNUP_FORM,
+                      formType: FormType.LOGIN_FORM,
                       onComplete: (User user) {
-                        // SignUp user
-                        authController.signUpUser(user);
+                        // Login user
+                        authController.loginUser(
+                            email: user.email, password: user.password);
 
-                        // Navigate user to the LOGIN_PAGE on successful signup attempt
-                        Navigator.pushReplacementNamed(
-                            context, AppRouter.LOGIN_PAGE);
+                        if (authController.isUserLoggedIn) {
+                          Navigator.pushReplacementNamed(
+                              context, AppRouter.HOME_PAGE);
+                        } else {
+                          print("Failed login attempt");
+                        }
                       },
                     ),
                   );

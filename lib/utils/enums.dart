@@ -16,3 +16,15 @@ enum FileType {
   CODE,
   DOCUMENT,
 }
+
+enum InputType {
+  TEXT,
+  EMAIL,
+  PASSWORD,
+  URL,
+}
+
+enum FormType {
+  SIGNUP_FORM,
+  LOGIN_FORM,
+}

@@ -1,16 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:collection/collection.dart';
 
-import 'package:password_manager/entities/enums.dart';
-import 'package:password_manager/widgets/avatars/auth_record_avatar.dart';
+import 'package:password_manager/utils/enums.dart';
 import 'package:password_manager/widgets/avatars/file_record_avatar.dart';
-import 'package:password_manager/widgets/gallery/gallery_item.dart';
 import 'package:password_manager/themes/app_theme_data.dart';
 import 'package:password_manager/utils/enum_extension.dart';
 
-class RectGalleryItem extends StatefulWidget implements GalleryItem {
-  final String? name;
-  final String? imgUrl;
+class RectGalleryItem extends StatefulWidget {
+  final String name;
+  final String imgUrl;
   final RecordType? recordType;
 
   final bool isSelected;
@@ -51,14 +49,26 @@ class _RectGalleryItemState extends State<RectGalleryItem> {
               height: widget.height - 50,
               child: widget.recordType == RecordType.AUTH
                   ? Center(
-                      child: AuthRecordAvatar(
-                        websiteUri: widget.imgUrl,
-                        radius: 40.0,
+                      child: Card(
+                        margin: EdgeInsets.symmetric(horizontal: 15.0),
+                        elevation: 4.0,
+                        shape: RoundedRectangleBorder(
+                            borderRadius: AppThemeData.borderRadiusSmall),
+                        clipBehavior: Clip.hardEdge,
+                        child: Container(
+                          width: 40.0,
+                          height: 40.0,
+                          padding: EdgeInsets.all(4.0),
+                          child: Image.network(
+                            widget.imgUrl,
+                            fit: BoxFit.contain,
+                          ),
+                        ),
                       ),
                     )
                   : FileRecordAvatar(
                       fileType: FileType.values.firstWhereOrNull(
-                        (e) => e.list.contains(widget.name?.split('.').last),
+                        (e) => e.list.contains(widget.name.split('.').last),
                       ),
                       isSelected: widget.isSelected,
                       selectedColor: selectedColor,
@@ -66,20 +76,22 @@ class _RectGalleryItemState extends State<RectGalleryItem> {
                     ),
             ),
             Divider(),
-            Container(
-              width: widget.width,
-              child: Center(
-                child: Text(
-                  widget.name ?? "Unknown",
-                  style: widget.isSelected
-                      ? Theme.of(context)
-                          .textTheme
-                          .bodyText1
-                          ?.copyWith(color: selectedColor)
-                      : Theme.of(context).textTheme.bodyText1,
-                ),
-              ),
-            ),
+            widget.name.isNotEmpty
+                ? Container(
+                    width: widget.width,
+                    child: Center(
+                      child: Text(
+                        widget.name,
+                        style: widget.isSelected
+                            ? Theme.of(context)
+                                .textTheme
+                                .bodyText1
+                                ?.copyWith(color: selectedColor)
+                            : Theme.of(context).textTheme.bodyText1,
+                      ),
+                    ),
+                  )
+                : SizedBox.shrink(),
           ],
         ),
       ),

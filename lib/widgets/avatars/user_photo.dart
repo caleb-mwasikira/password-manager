@@ -44,7 +44,7 @@ class _UserPhotoState extends State<UserPhoto> {
                       height: widget.radius,
                       child: ClipRRect(
                         clipBehavior: Clip.hardEdge,
-                        borderRadius: AppThemeData.borderRadius,
+                        borderRadius: AppThemeData.borderRadiusSmall,
                         child: Image.asset(
                           widget.imgUrl!,
                           fit: BoxFit.fill,
@@ -58,16 +58,10 @@ class _UserPhotoState extends State<UserPhoto> {
                 ),
           widget.isEditable
               ? ActionButton(
-                  child: IconButton(
-                    onPressed: () async {
-                      await editUserPhoto(context);
-                    },
-                    padding: EdgeInsets.zero,
-                    color: AppThemeData.primaryColor,
-                    splashRadius: 20.0,
-                    iconSize: AppThemeData.iconsSizeSmall,
-                    icon: Icon(Icons.edit),
-                  ),
+                  iconData: Icons.edit,
+                  onPressed: () async {
+                    await editUserPhoto(context);
+                  },
                 )
               : SizedBox.shrink()
         ],

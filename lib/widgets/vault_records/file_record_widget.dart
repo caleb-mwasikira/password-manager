@@ -90,7 +90,7 @@ class _FileRecordWidgetState extends State<FileRecordWidget> {
                       });
                     },
                     padding: EdgeInsets.zero,
-                    iconSize: AppThemeData.iconsSizeMedium,
+                    iconSize: AppThemeData.iconSizeMedium,
                     color: widget.isSelected
                         ? AppThemeData.whiteColor
                         : AppThemeData.textColor,

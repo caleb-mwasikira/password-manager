@@ -1,24 +1,24 @@
 import 'package:flutter/material.dart';
 
 import 'package:password_manager/controllers/app_data.dart';
-import 'package:password_manager/controllers/auth_controller.dart';
+import 'package:password_manager/controllers/user_controller.dart';
 import 'package:password_manager/models/user.dart';
-import 'package:password_manager/widgets/avatars/user_photo.dart';
+import 'package:password_manager/widgets/avatars/user_avatar.dart';
 import 'package:password_manager/themes/app_theme_data.dart';
 import 'package:password_manager/widgets/gallery/gallery.dart';
 import 'package:password_manager/entities/gallery_item.dart';
 import 'package:provider/provider.dart';
 
-class EditUserPhoto extends StatefulWidget {
-  const EditUserPhoto({
+class EditUserAvatar extends StatefulWidget {
+  const EditUserAvatar({
     Key? key,
   }) : super(key: key);
 
   @override
-  _EditUserPhotoState createState() => _EditUserPhotoState();
+  _EditUserAvatarState createState() => _EditUserAvatarState();
 }
 
-class _EditUserPhotoState extends State<EditUserPhoto>
+class _EditUserAvatarState extends State<EditUserAvatar>
     with TickerProviderStateMixin {
   late AnimationController _animationController;
   late Animation _animation;
@@ -36,7 +36,7 @@ class _EditUserPhotoState extends State<EditUserPhoto>
       });
 
     Future<List<String>> _assetImages =
-        AppData.fetchAssetImages(assetDir: 'images/users');
+        AppData.fetchAssetImages(assetDir: 'images/avatars');
     setState(() {
       assetImages = _assetImages;
     });
@@ -52,9 +52,9 @@ class _EditUserPhotoState extends State<EditUserPhoto>
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<AuthController>(
-        builder: (BuildContext context, AuthController authController, _) {
-      String? userProfile = authController.currentlyLoggedInUser?.profilePic;
+    return Consumer<UserController>(
+        builder: (BuildContext context, UserController userController, _) {
+      String? userProfile = userController.currentlyLoggedInUser?.profilePic;
 
       return Container(
         width: 200,
@@ -76,11 +76,10 @@ class _EditUserPhotoState extends State<EditUserPhoto>
                   ),
                 ),
                 clipBehavior: Clip.hardEdge,
-                child: UserPhoto(
+                child: UserAvatar(
                   imgUrl: userProfile,
                   radius: 40.0,
                   isEditable: false,
-                  foregroundColor: Colors.white,
                 ),
               ),
             ),
@@ -112,13 +111,13 @@ class _EditUserPhotoState extends State<EditUserPhoto>
                         String? selectedUserProfile = assetImages[index];
 
                         User? currentlyLoggedInUser =
-                            authController.currentlyLoggedInUser;
+                            userController.currentlyLoggedInUser;
 
                         if (currentlyLoggedInUser != null) {
                           currentlyLoggedInUser.profilePic =
                               selectedUserProfile;
 
-                          authController
+                          userController
                               .updateLoggedInUser(currentlyLoggedInUser);
                         }
                       },

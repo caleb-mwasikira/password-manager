@@ -3,11 +3,11 @@ import 'package:line_icons/line_icons.dart';
 import 'package:provider/provider.dart';
 
 import 'package:password_manager/controllers/app_router.dart';
-import 'package:password_manager/controllers/auth_controller.dart';
+import 'package:password_manager/controllers/user_controller.dart';
 import 'package:password_manager/entities/drawer_item.dart';
 import 'package:password_manager/models/user.dart';
-import 'package:password_manager/widgets/avatars/user_photo.dart';
 import 'package:password_manager/widgets/drawer/drawer_item_widget.dart';
+import 'package:password_manager/widgets/avatars/user_profile.dart';
 
 class DrawerWidget extends StatefulWidget {
   const DrawerWidget({Key? key}) : super(key: key);
@@ -44,6 +44,15 @@ class _DrawerWidgetState extends State<DrawerWidget> {
       },
     ),
     DrawerItem(
+      icon: LineIcons.theaterMasks,
+      name: "Developers",
+      isDisabled: true,
+      onTap: (context) {
+        throw UnimplementedError(
+            "Route DEVELOPERS has not yet been implemented");
+      },
+    ),
+    DrawerItem(
       icon: LineIcons.cog,
       name: "Settings",
       isDisabled: true,
@@ -55,8 +64,8 @@ class _DrawerWidgetState extends State<DrawerWidget> {
       icon: LineIcons.alternateSignOut,
       name: "Logout",
       onTap: (context) {
-        AuthController authController =
-            Provider.of<AuthController>(context, listen: false);
+        UserController authController =
+            Provider.of<UserController>(context, listen: false);
 
         authController.logoutUser(context);
       },
@@ -65,39 +74,18 @@ class _DrawerWidgetState extends State<DrawerWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<AuthController>(
-        builder: (BuildContext context, AuthController authController, _) {
-      User? currentUser = authController.currentlyLoggedInUser;
+    return Consumer<UserController>(
+        builder: (BuildContext context, UserController userController, _) {
+      User? currentUser = userController.currentlyLoggedInUser;
 
       return Drawer(
         backgroundColor: Colors.white,
         child: ListView(
           children: [
             DrawerHeader(
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: <Widget>[
-                  UserPhoto(
-                    imgUrl: currentUser?.profilePic,
-                    radius: 40.0,
-                  ),
-                  Container(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.end,
-                      children: <Widget>[
-                        Text(
-                          currentUser?.username ?? "",
-                          style: Theme.of(context).textTheme.headline1,
-                        ),
-                        Text(
-                          currentUser?.email ?? "",
-                          style: Theme.of(context).textTheme.bodyText1,
-                        ),
-                      ],
-                    ),
-                  )
-                ],
+              child: UserProfile(
+                user: currentUser,
+                isEditable: true,
               ),
             ),
             Container(
@@ -107,8 +95,6 @@ class _DrawerWidgetState extends State<DrawerWidget> {
                 itemBuilder: (BuildContext context, int index) {
                   return DrawerItemWidget(
                     drawerItem: drawerItems[index],
-                    marginVertical:
-                        index == drawerItems.length - 1 ? 40.0 : 20.0,
                   );
                 },
               ),

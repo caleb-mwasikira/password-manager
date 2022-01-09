@@ -3,6 +3,9 @@ import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
 import 'package:file_picker/file_picker.dart';
 
+import 'package:password_manager/controllers/app_data.dart';
+import 'package:password_manager/themes/app_theme_data.dart';
+
 /// Cast dynamic variable into type T
 T? cast<T>(variableName) => variableName is T ? variableName : null;
 
@@ -20,21 +23,40 @@ String dateTimeToString(DateTime dateTime) {
   return parsedDateTime;
 }
 
-SnackBar snackbarWidget(BuildContext context) {
+SnackBar snackbarWidget({
+  required BuildContext context,
+  required String title,
+  Color? backgroundColor,
+  String? actionLabel,
+  Function()? actionOnPressed,
+}) {
   return SnackBar(
-    backgroundColor: Colors.lightBlueAccent,
+    backgroundColor: Colors.lightBlue,
+    behavior: SnackBarBehavior.floating,
+    shape: RoundedRectangleBorder(
+      borderRadius: AppThemeData.borderRadiusSmall,
+    ),
+    width: 400.0,
     content: Container(
       height: 20.0,
       child: Center(
         child: Text(
-          "File Selection Cancelled By User",
+          title,
+          textAlign: TextAlign.center,
           style: Theme.of(context)
               .textTheme
-              .bodyText1
+              .headline3
               ?.copyWith(color: Colors.white),
         ),
       ),
     ),
+    action: actionLabel != null && actionOnPressed != null
+        ? SnackBarAction(
+            label: actionLabel,
+            textColor: Colors.white,
+            onPressed: actionOnPressed,
+          )
+        : null,
   );
 }
 
@@ -44,13 +66,18 @@ Future<String?> selectImageFromDisk({
 }) async {
   FilePickerResult? result = await FilePicker.platform.pickFiles(
     type: FileType.custom,
-    allowedExtensions: ['jpg', 'png', 'jpeg'],
+    allowedExtensions: AppData.allowedImageExtensions,
   );
 
   String? selectedFile = result?.files.single.path;
 
   if (selectedFile == null) {
-    ScaffoldMessenger.of(context).showSnackBar(snackbarWidget(context));
+    ScaffoldMessenger.of(context).showSnackBar(
+      snackbarWidget(
+        context: context,
+        title: "Zero files selected",
+      ),
+    );
   }
 
   return selectedFile;
@@ -61,7 +88,7 @@ Future<List<String?>?> selectMultipleImagesFromDisk({
 }) async {
   FilePickerResult? result = await FilePicker.platform.pickFiles(
     type: FileType.custom,
-    allowedExtensions: ['jpg', 'png', 'jpeg'],
+    allowedExtensions: AppData.allowedImageExtensions,
     allowMultiple: true,
   );
 
@@ -69,7 +96,12 @@ Future<List<String?>?> selectMultipleImagesFromDisk({
       result?.files.map((platformFile) => platformFile.path).toList();
 
   if (selectedFiles == null) {
-    ScaffoldMessenger.of(context).showSnackBar(snackbarWidget(context));
+    ScaffoldMessenger.of(context).showSnackBar(
+      snackbarWidget(
+        context: context,
+        title: "Zero files selected",
+      ),
+    );
   }
 
   return selectedFiles;

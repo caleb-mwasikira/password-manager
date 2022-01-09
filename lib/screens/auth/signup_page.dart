@@ -1,12 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:password_manager/controllers/app_data.dart';
-import 'package:password_manager/controllers/auth_controller.dart';
-import 'package:password_manager/controllers/app_router.dart';
-import 'package:password_manager/utils/enums.dart';
-import 'package:password_manager/models/user.dart';
-
-import 'package:password_manager/widgets/auth_widgets/auth_form.dart';
+import 'package:line_icons/line_icons.dart';
 import 'package:provider/provider.dart';
+import 'package:uuid/uuid.dart';
+
+import 'package:password_manager/widgets/auth_widgets/auth_widgets.dart';
+import 'package:password_manager/widgets/auth_widgets/form_submit_btn.dart';
+import 'package:password_manager/widgets/auth_widgets/provider_auth_btn.dart';
+import 'package:password_manager/widgets/forms/form_field_widget.dart';
+import 'package:password_manager/controllers/user_controller.dart';
+import 'package:password_manager/controllers/app_router.dart';
+import 'package:password_manager/entities/auth_status.dart';
+import 'package:password_manager/models/user.dart';
+import 'package:password_manager/utils/utils.dart';
+import 'package:password_manager/utils/enums.dart';
 
 class SignUpPage extends StatefulWidget {
   const SignUpPage({
@@ -18,6 +24,12 @@ class SignUpPage extends StatefulWidget {
 }
 
 class _SignUpPageState extends State<SignUpPage> {
+  final formKey = GlobalKey<FormState>();
+
+  String? username;
+  String email = "";
+  String password = "";
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -27,40 +39,150 @@ class _SignUpPageState extends State<SignUpPage> {
           height: MediaQuery.of(context).size.height,
           child: Stack(
             children: [
-              Align(
-                alignment: Alignment.centerRight,
-                child: Tooltip(
-                  message: "",
-                  child: Image.asset(
-                    "assets/images/display_art/woman_studying_in_armchair.png",
-                    height: 350.0,
-                    fit: BoxFit.cover,
+              authDisplayArt("assets/images/display_art/account.jpg"),
+              Container(
+                width: MediaQuery.of(context).size.width / 2,
+                child: Form(
+                  key: formKey,
+                  child: Container(
+                    margin:
+                        EdgeInsets.symmetric(horizontal: 30.0, vertical: 10.0),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Container(
+                          margin: EdgeInsets.symmetric(vertical: 10.0),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              ProviderAuthBtn(
+                                title: "SignUp with Google",
+                                icon: LineIcons.googleLogo,
+                                color: Color(0XFF0F9D58),
+                                onPressed: () {
+                                  print('SignUp with google btn was clicked');
+
+                                  // TODO: Imlement registration with Google feature.
+                                },
+                              ),
+                              Container(
+                                width: 250.0,
+                                height: 20.0,
+                                margin: EdgeInsets.symmetric(vertical: 10.0),
+                                child: Row(
+                                  children: <Widget>[
+                                    Expanded(
+                                      child: Divider(),
+                                    ),
+                                    Container(
+                                      margin:
+                                          EdgeInsets.symmetric(horizontal: 5.0),
+                                      child: Text(
+                                        "or SignUp with Email",
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .bodyText2
+                                            ?.copyWith(color: Colors.grey),
+                                      ),
+                                    ),
+                                    Expanded(
+                                      child: Divider(),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        Container(
+                          margin: EdgeInsets.symmetric(vertical: 10.0),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              FormFieldWidget(
+                                name: "username",
+                                hintText: "john doe",
+                                prefixIcon: LineIcons.userCircle,
+                                textInputType: InputType.TEXT,
+                                width: 200.0,
+                                onSaved: (String? value) {
+                                  username = value;
+                                },
+                              ),
+                              FormFieldWidget(
+                                name: "email",
+                                hintText: "mail@website.com",
+                                prefixIcon: LineIcons.envelope,
+                                textInputType: InputType.EMAIL,
+                                onSaved: (String? value) {
+                                  email = value ?? "";
+                                },
+                              ),
+                              FormFieldWidget(
+                                name: "password",
+                                hintText: "Min 8 characters",
+                                prefixIcon: LineIcons.lock,
+                                obscureText: true,
+                                textInputType: InputType.PASSWORD,
+                                onSaved: (String? value) {
+                                  password = value ?? "";
+                                },
+                              ),
+                              altAuthenticationQst(
+                                title: "Already have an account? Login",
+                                onPressed: () {
+                                  Navigator.of(context).pushReplacementNamed(
+                                      AppRouter.LOGIN_PAGE);
+                                },
+                                context: context,
+                              ),
+                            ],
+                          ),
+                        ),
+                        FormSubmitBtn(
+                          title: "SignUp",
+                          formKey: formKey,
+                          margin: EdgeInsets.symmetric(vertical: 10.0),
+                          onSubmit: signUpUser,
+                        ),
+                      ],
+                    ),
                   ),
                 ),
-              ),
-              Consumer<AuthController>(
-                builder:
-                    (BuildContext context, AuthController authController, _) {
-                  return Container(
-                    width: MediaQuery.of(context).size.width / 2,
-                    child: AuthForm(
-                      formType: FormType.SIGNUP_FORM,
-                      onComplete: (User user) {
-                        // SignUp user
-                        authController.signUpUser(user);
-
-                        // Navigate user to the LOGIN_PAGE on successful signup attempt
-                        Navigator.pushReplacementNamed(
-                            context, AppRouter.LOGIN_PAGE);
-                      },
-                    ),
-                  );
-                },
               ),
             ],
           ),
         ),
       ),
     );
+  }
+
+  void signUpUser() {
+    User user = User(
+      id: Uuid().v1(),
+      username: username?.toLowerCase(),
+      email: email.toLowerCase(),
+      password: password,
+    );
+
+    UserController userController =
+        Provider.of<UserController>(context, listen: false);
+
+    // SignUp user
+    AuthStatus status = userController.signUpUser(user);
+
+    // Navigate user to the LOGIN_PAGE on successful signup attempt
+    if (status.ok) {
+      Navigator.pushReplacementNamed(context, AppRouter.LOGIN_PAGE);
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        snackbarWidget(
+          context: context,
+          title: status.message,
+        ),
+      );
+    }
   }
 }

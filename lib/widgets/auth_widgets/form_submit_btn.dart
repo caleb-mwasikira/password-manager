@@ -53,7 +53,7 @@ class _FormSubmitBtnState extends State<FormSubmitBtn> {
           ),
           shape: MaterialStateProperty.all<RoundedRectangleBorder>(
             RoundedRectangleBorder(
-              borderRadius: AppThemeData.borderRadiusLarge,
+              borderRadius: AppThemeData.borderRadiusSmall,
             ),
           ),
         ),

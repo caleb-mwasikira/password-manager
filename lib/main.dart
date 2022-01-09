@@ -6,7 +6,7 @@ import 'package:hive_flutter/hive_flutter.dart';
 
 import 'package:password_manager/widgets/my_app.dart';
 import 'package:password_manager/controllers/vault_records_controller.dart';
-import 'package:password_manager/controllers/auth_controller.dart';
+import 'package:password_manager/controllers/user_controller.dart';
 import 'package:password_manager/controllers/hive_boxes.dart';
 import 'package:password_manager/controllers/app_data.dart';
 import 'package:password_manager/models/user.dart';
@@ -44,7 +44,7 @@ void main() async {
         ),
         ChangeNotifierProvider(
           create: (context) =>
-              AuthController(usersBox: Hive.box<User>(HiveBoxes.users)),
+              UserController(usersBox: Hive.box<User>(HiveBoxes.users)),
         )
       ],
       child: MyApp(),

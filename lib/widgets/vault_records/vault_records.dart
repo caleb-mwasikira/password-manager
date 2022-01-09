@@ -43,8 +43,8 @@ class _VaultRecordsState extends State<VaultRecords> {
                   clipBehavior: Clip.hardEdge,
                   child: InkWell(
                     hoverColor: Colors.transparent,
-                    focusColor: Colors.blueAccent,
-                    highlightColor: Colors.blueAccent,
+                    focusColor: Colors.transparent,
+                    highlightColor: Colors.transparent,
                     onTap: () {
                       vaultRecordsController.selectRecord(_vaultRecord.id);
                     },

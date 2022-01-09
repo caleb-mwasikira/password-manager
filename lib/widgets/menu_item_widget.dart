@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:custom_pop_up_menu/custom_pop_up_menu.dart';
-import 'package:password_manager/entities/menu_item.dart';
 
+import 'package:password_manager/entities/menu_item.dart';
 import 'package:password_manager/themes/app_theme_data.dart';
 
 // ignore: must_be_immutable
@@ -50,7 +50,7 @@ class _MenuItemWidgetState extends State<MenuItemWidget> {
           children: <Widget>[
             Icon(
               widget.menuItem.icon,
-              size: AppThemeData.iconsSizeMedium,
+              size: AppThemeData.iconSizeMedium,
               color: Colors.white,
             ),
             widget.menuItem.title != null

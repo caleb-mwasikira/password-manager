@@ -1,6 +1,7 @@
 import 'package:clipboard/clipboard.dart';
 import 'package:flutter/material.dart';
 import 'package:line_icons/line_icons.dart';
+
 import 'package:password_manager/themes/app_theme_data.dart';
 
 // ignore: must_be_immutable
@@ -44,7 +45,7 @@ class _RecordDetailState extends State<RecordDetail> {
               widget.canBeCopied
                   ? IconButton(
                       icon: Icon(LineIcons.clipboard),
-                      iconSize: AppThemeData.iconsSizeMedium,
+                      iconSize: AppThemeData.iconSizeMedium,
                       tooltip: "Copy ${widget.title.toLowerCase()}",
                       splashRadius: 20.0,
                       onPressed: () {

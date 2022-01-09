@@ -2,35 +2,33 @@ import 'package:flutter/material.dart';
 
 import 'package:password_manager/themes/app_theme_data.dart';
 
-class ProviderSignInBtn extends StatefulWidget {
-  final String providerTitle;
-  final IconData providerIcon;
-  final Function onBtnPressed;
-  final Color? providerColor;
+class ProviderAuthBtn extends StatefulWidget {
+  final String title;
+  final IconData icon;
+  final void Function() onPressed;
+  final Color? color;
   final double width;
 
-  const ProviderSignInBtn({
+  const ProviderAuthBtn({
     Key? key,
-    required this.providerTitle,
-    required this.providerIcon,
-    required this.onBtnPressed,
-    this.providerColor,
+    required this.title,
+    required this.icon,
+    required this.onPressed,
+    this.color,
     this.width = 250.0,
   }) : super(key: key);
 
   @override
-  _ProviderSignInBtnState createState() => _ProviderSignInBtnState();
+  _ProviderAuthBtnState createState() => _ProviderAuthBtnState();
 }
 
-class _ProviderSignInBtnState extends State<ProviderSignInBtn> {
+class _ProviderAuthBtnState extends State<ProviderAuthBtn> {
   bool onHover = false;
 
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
-      onPressed: () {
-        widget.onBtnPressed();
-      },
+      onPressed: widget.onPressed,
       style: ButtonStyle(
         backgroundColor: MaterialStateProperty.all<Color>(
           Colors.white,
@@ -40,7 +38,7 @@ class _ProviderSignInBtnState extends State<ProviderSignInBtn> {
         ),
         shape: MaterialStateProperty.all<RoundedRectangleBorder>(
           RoundedRectangleBorder(
-            borderRadius: AppThemeData.borderRadiusLarge,
+            borderRadius: AppThemeData.borderRadiusSmall,
           ),
         ),
       ),
@@ -52,13 +50,13 @@ class _ProviderSignInBtnState extends State<ProviderSignInBtn> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               Icon(
-                widget.providerIcon,
-                size: AppThemeData.iconsSizeMedium,
-                color: onHover ? AppThemeData.whiteColor : widget.providerColor,
+                widget.icon,
+                size: AppThemeData.iconSizeMedium,
+                color: onHover ? AppThemeData.whiteColor : widget.color,
               ),
               SizedBox(width: 20.0),
               Text(
-                widget.providerTitle,
+                widget.title,
                 style: onHover
                     ? Theme.of(context)
                         .textTheme

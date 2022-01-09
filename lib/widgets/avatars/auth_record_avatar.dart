@@ -71,7 +71,7 @@ class _AuthRecordAvatarState extends State<AuthRecordAvatar> {
     return Center(
       child: Icon(
         LineIcons.alternateFire,
-        size: AppThemeData.iconsSizeMedium,
+        size: AppThemeData.iconSizeMedium,
         color: Colors.grey,
       ),
     );

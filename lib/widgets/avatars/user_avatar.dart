@@ -2,31 +2,31 @@ import 'package:flutter/material.dart';
 import 'package:line_icons/line_icons.dart';
 
 import 'package:password_manager/widgets/action_button.dart';
-import 'package:password_manager/widgets/edit_user_photo.dart';
+import 'package:password_manager/widgets/avatars/edit_user_avatar.dart';
 import 'package:password_manager/themes/app_theme_data.dart';
 
 // ignore: must_be_immutable
-class UserPhoto extends StatefulWidget {
+class UserAvatar extends StatefulWidget {
   String? imgUrl;
   final double radius;
   final bool isEditable;
   final BoxShape shape;
   final Color foregroundColor;
 
-  UserPhoto({
+  UserAvatar({
     Key? key,
     required this.imgUrl,
     this.radius = 20.0,
-    this.isEditable = true,
+    this.isEditable = false,
     this.shape = BoxShape.circle,
     this.foregroundColor = AppThemeData.textColor,
   }) : super(key: key);
 
   @override
-  _UserPhotoState createState() => _UserPhotoState();
+  _UserAvatarState createState() => _UserAvatarState();
 }
 
-class _UserPhotoState extends State<UserPhoto> {
+class _UserAvatarState extends State<UserAvatar> {
   @override
   Widget build(BuildContext context) {
     return Center(
@@ -37,6 +37,7 @@ class _UserPhotoState extends State<UserPhoto> {
               ? widget.shape == BoxShape.circle
                   ? CircleAvatar(
                       radius: widget.radius,
+                      backgroundColor: Colors.white,
                       backgroundImage: AssetImage(widget.imgUrl!),
                     )
                   : Container(
@@ -60,7 +61,7 @@ class _UserPhotoState extends State<UserPhoto> {
               ? ActionButton(
                   iconData: Icons.edit,
                   onPressed: () async {
-                    await editUserPhoto(context);
+                    await editUserAvatar(context);
                   },
                 )
               : SizedBox.shrink()
@@ -69,7 +70,7 @@ class _UserPhotoState extends State<UserPhoto> {
     );
   }
 
-  Future<dynamic> editUserPhoto(BuildContext context) {
+  Future<dynamic> editUserAvatar(BuildContext context) {
     return showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -77,7 +78,7 @@ class _UserPhotoState extends State<UserPhoto> {
           backgroundColor: Colors.transparent,
           contentPadding: EdgeInsets.zero,
           elevation: 0.0,
-          content: EditUserPhoto(),
+          content: EditUserAvatar(),
         );
       },
     );

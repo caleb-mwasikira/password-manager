@@ -19,16 +19,18 @@ class AppData {
   }
 
   static Future<String> get appStorageDir async {
-    return path.join(await _appDir, ".storage");
+    return path.join(await _appDir, "storage");
   }
 
   static Future<String> get appIconsDir async {
     // Create app icons directory
-    var _appIconsDir = await Directory(path.join(await _appDir, ".icons"))
+    var _appIconsDir = await Directory(path.join(await _appDir, "icons"))
         .create(recursive: true);
 
     return _appIconsDir.path;
   }
+
+  static List<String>? allowedImageExtensions = ['jpg', 'png', 'jpeg'];
 
   static List<GalleryItem> categories = [
     GalleryItem(

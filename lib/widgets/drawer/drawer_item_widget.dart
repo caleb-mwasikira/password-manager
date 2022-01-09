@@ -7,14 +7,9 @@ import 'package:password_manager/themes/app_theme_data.dart';
 class DrawerItemWidget extends StatefulWidget {
   final DrawerItem drawerItem;
 
-  final double marginVertical;
-  final double marginHorizontal;
-
   DrawerItemWidget({
     Key? key,
     required this.drawerItem,
-    this.marginVertical = 5.0,
-    this.marginHorizontal = 20.0,
   }) : super(key: key);
 
   @override
@@ -29,10 +24,7 @@ class _DrawerItemWidgetState extends State<DrawerItemWidget> {
   Widget build(BuildContext context) {
     return Container(
       clipBehavior: Clip.hardEdge,
-      margin: EdgeInsets.symmetric(
-        vertical: widget.marginVertical,
-        horizontal: widget.marginHorizontal,
-      ),
+      margin: EdgeInsets.symmetric(vertical: 12.0, horizontal: 20.0),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.all(
           Radius.circular(20.0),
@@ -69,7 +61,7 @@ class _DrawerItemWidgetState extends State<DrawerItemWidget> {
                   margin: EdgeInsets.symmetric(horizontal: 20.0),
                   child: Icon(
                     widget.drawerItem.icon,
-                    size: AppThemeData.iconsSizeMedium,
+                    size: AppThemeData.iconSizeMedium,
                     color: onHover
                         ? AppThemeData.whiteColor
                         : AppThemeData.textColor,

@@ -1,16 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:line_icons/line_icons.dart';
-import 'package:password_manager/utils/enums.dart';
-import 'package:password_manager/utils/utils.dart';
-import 'package:password_manager/widgets/forms/form_field_widget.dart';
-import 'package:password_manager/widgets/vault_records/record_detail.dart';
 import 'package:provider/provider.dart';
 
+import 'package:password_manager/utils/utils.dart';
+import 'package:password_manager/widgets/vault_records/confirmation_dialog.dart';
+import 'package:password_manager/widgets/vault_records/record_detail.dart';
 import 'package:password_manager/themes/app_theme_data.dart';
 import 'package:password_manager/widgets/action_button.dart';
 import 'package:password_manager/controllers/vault_records_controller.dart';
 import 'package:password_manager/models/auth_record.dart';
-import 'package:password_manager/widgets/result.dart';
 import 'package:password_manager/widgets/vault_records/auth_record_widget.dart';
 
 class SelectedRecord extends StatefulWidget {
@@ -36,10 +34,11 @@ class _SelectedRecordState extends State<SelectedRecord> {
             margin: EdgeInsets.all(10.0),
             child: Center(
               child: selectedRecord == null
-                  ? Result(
-                      imgUrl: "assets/images/display_art/no_data_found.png",
-                      message: "No currently selected record",
-                    )
+                  // ? Result(
+                  //     imgUrl: "assets/images/display_art/no_data_found.png",
+                  //     message: "No currently selected record",
+                  //   )
+                  ? SizedBox()
                   : Column(
                       children: [
                         Expanded(
@@ -64,8 +63,7 @@ class _SelectedRecordState extends State<SelectedRecord> {
                                           iconData: LineIcons.alternatePencil,
                                           margin: EdgeInsets.all(10.0),
                                           backgroundColor: Colors.transparent,
-                                          iconSize:
-                                              AppThemeData.iconsSizeMedium,
+                                          iconSize: AppThemeData.iconSizeMedium,
                                           tooltip: "Edit",
                                           onPressed: () {
                                             print(
@@ -76,15 +74,34 @@ class _SelectedRecordState extends State<SelectedRecord> {
                                           iconData: LineIcons.trash,
                                           margin: EdgeInsets.all(10.0),
                                           backgroundColor: Colors.transparent,
-                                          iconSize:
-                                              AppThemeData.iconsSizeMedium,
+                                          iconSize: AppThemeData.iconSizeMedium,
                                           tooltip: "Delete",
                                           onPressed: () {
-                                            print(
-                                                "Delete record ${selectedRecord.id} button was clicked");
+                                            // Delete record button was clicked
 
-                                            vaultRecordsController.deleteRecord(
-                                                selectedRecord.id);
+                                            showDialog(
+                                              context: context,
+                                              builder: (BuildContext context) {
+                                                return AlertDialog(
+                                                  elevation: 0.0,
+                                                  backgroundColor:
+                                                      Colors.transparent,
+                                                  shape: RoundedRectangleBorder(
+                                                    borderRadius: AppThemeData
+                                                        .borderRadiusSmall,
+                                                  ),
+                                                  content: ConfirmationDialog(
+                                                    title: "Delete this login?",
+                                                    onAccept: () {
+                                                      vaultRecordsController
+                                                          .deleteRecord(
+                                                              selectedRecord
+                                                                  .id);
+                                                    },
+                                                  ),
+                                                );
+                                              },
+                                            );
                                           },
                                         ),
                                       ],

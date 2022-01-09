@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import 'package:password_manager/themes/app_theme_data.dart';
 
 // ignore: must_be_immutable
@@ -19,7 +20,7 @@ class ActionButton extends StatelessWidget {
   ActionButton({
     Key? key,
     required this.iconData,
-    this.iconSize = AppThemeData.iconsSizeSmall,
+    this.iconSize = AppThemeData.iconSizeSmall,
     this.tooltip,
     this.radius = 20.0,
     this.color = AppThemeData.primaryColor,

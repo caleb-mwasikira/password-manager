@@ -12,8 +12,8 @@ class AppThemeData {
       BorderRadius.circular(borderRadiusSize * 10);
 
   static const double iconSizeLarge = 35.0;
-  static const double iconsSizeMedium = 20.0;
-  static const double iconsSizeSmall = 15.0;
+  static const double iconSizeMedium = 20.0;
+  static const double iconSizeSmall = 15.0;
 
   static const Color primaryColor = Color(0XFF15ACA2);
   static const Color primaryColorDark = Color(0XFF048C7F);
@@ -60,7 +60,7 @@ class AppThemeData {
           color: textColor,
           fontSize: 14.0,
           fontFamily: "Roboto_Mono",
-          fontWeight: FontWeight.w400,
+          fontWeight: FontWeight.w500,
         ),
         bodyText1: TextStyle(
           color: textColor,

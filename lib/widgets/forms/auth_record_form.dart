@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:line_icons/line_icons.dart';
-import 'package:password_manager/themes/app_theme_data.dart';
 import 'package:provider/provider.dart';
 import 'package:uuid/uuid.dart';
 
+import 'package:password_manager/utils/utils.dart';
+import 'package:password_manager/widgets/avatars/auth_record_avatar.dart';
 import 'package:password_manager/controllers/vault_records_controller.dart';
 import 'package:password_manager/controllers/app_data.dart';
 import 'package:password_manager/models/auth_record.dart';
@@ -45,10 +46,10 @@ class _AuthRecordFormState extends State<AuthRecordForm> {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Container(
-            margin: EdgeInsets.symmetric(horizontal: 10.0, vertical: 15.0),
-            child: Text(
-              widget.title,
-              style: Theme.of(context).textTheme.headline2,
+            margin: EdgeInsets.symmetric(vertical: 20.0),
+            child: AuthRecordAvatar(
+              websiteUri: websiteUrl,
+              radius: 40.0,
             ),
           ),
           Form(
@@ -62,7 +63,7 @@ class _AuthRecordFormState extends State<AuthRecordForm> {
                   children: [
                     FormFieldWidget(
                       name: "Website Url",
-                      hintText: "https://www.google.com",
+                      hintText: "https://www.example.com",
                       textInputType: InputType.URL,
                       prefixIcon: LineIcons.cloud,
                       onSaved: (String? value) {
@@ -98,7 +99,7 @@ class _AuthRecordFormState extends State<AuthRecordForm> {
                   isMutable: false,
                   width: 200.0,
                   margin:
-                      EdgeInsets.symmetric(vertical: 20.0, horizontal: 40.0),
+                      EdgeInsets.symmetric(vertical: 10.0, horizontal: 40.0),
                   onSelectGalleryItem: (int selectedIndex) {
                     category = AppData.categories[selectedIndex];
                   },
@@ -110,7 +111,7 @@ class _AuthRecordFormState extends State<AuthRecordForm> {
                     _,
                   ) {
                     return FormSubmitBtn(
-                      title: "Create ${widget.title}",
+                      title: "Create New Login",
                       formKey: formKey,
                       onSubmit: () {
                         AuthRecord newAuthRecord = AuthRecord(
@@ -127,6 +128,18 @@ class _AuthRecordFormState extends State<AuthRecordForm> {
                             key: newAuthRecord.id, record: newAuthRecord);
 
                         Navigator.of(context).pop();
+
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          snackbarWidget(
+                            context: context,
+                            title: "Created New Login",
+                            actionLabel: "Undo",
+                            actionOnPressed: () {
+                              vaultRecordsController
+                                  .deleteRecord(newAuthRecord.id);
+                            },
+                          ),
+                        );
                       },
                     );
                   },

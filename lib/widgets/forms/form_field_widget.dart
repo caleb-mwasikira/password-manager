@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:line_icons/line_icons.dart';
-import 'package:password_manager/utils/utils.dart';
 import 'package:regexpattern/regexpattern.dart';
 
 import 'package:password_manager/utils/enums.dart';
 import 'package:password_manager/themes/app_theme_data.dart';
+import 'package:password_manager/utils/utils.dart';
 
 class FormFieldWidget extends StatefulWidget {
   final String initialText;
@@ -77,7 +77,7 @@ class _FormFieldWidgetState extends State<FormFieldWidget> {
       child: Card(
         elevation: 2.0,
         shape: RoundedRectangleBorder(
-          borderRadius: AppThemeData.borderRadiusLarge,
+          borderRadius: AppThemeData.borderRadiusSmall,
         ),
         margin: EdgeInsets.symmetric(vertical: 15.0),
         child: Container(
@@ -120,7 +120,7 @@ class _FormFieldWidgetState extends State<FormFieldWidget> {
               prefixIcon: widget.prefixIcon != null
                   ? IconButton(
                       icon: Icon(widget.prefixIcon),
-                      iconSize: AppThemeData.iconsSizeMedium,
+                      iconSize: AppThemeData.iconSizeMedium,
                       hoverColor: Colors.transparent,
                       tooltip: widget.textInputType == InputType.PASSWORD
                           ? "Generate Password?"
@@ -137,11 +137,12 @@ class _FormFieldWidgetState extends State<FormFieldWidget> {
               suffixIcon: widget.textInputType == InputType.PASSWORD
                   ? IconButton(
                       icon: Icon(
-                          isTextHidden ? LineIcons.eye : LineIcons.eyeSlashAlt),
-                      iconSize: AppThemeData.iconsSizeMedium,
+                          isTextHidden ? LineIcons.eye : LineIcons.eyeSlash),
+                      iconSize: AppThemeData.iconSizeMedium,
                       padding: EdgeInsets.symmetric(horizontal: 5.0),
                       hoverColor: Colors.transparent,
                       tooltip: isTextHidden ? "View Password" : "Hide Password",
+                      splashRadius: 20.0,
                       onPressed: () {
                         setState(() {
                           isTextHidden = !isTextHidden;

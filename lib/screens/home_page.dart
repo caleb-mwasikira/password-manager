@@ -3,7 +3,6 @@ import 'package:line_icons/line_icons.dart';
 import 'package:custom_pop_up_menu/custom_pop_up_menu.dart';
 import 'package:provider/provider.dart';
 
-import 'package:password_manager/controllers/auth_controller.dart';
 import 'package:password_manager/controllers/vault_records_controller.dart';
 import 'package:password_manager/widgets/vault_records/selected_record.dart';
 import 'package:password_manager/widgets/vault_records/vault_records.dart';
@@ -32,10 +31,6 @@ class _HomePageState extends State<HomePage> {
 
   @override
   void initState() {
-    WidgetsBinding.instance?.addPostFrameCallback((_) {
-      isPageAuthRestricted(context);
-    });
-
     setState(() {
       menuItems = [
         MenuItem(title: RecordType.AUTH.value, icon: LineIcons.userCircle),
@@ -89,6 +84,7 @@ class _HomePageState extends State<HomePage> {
     return CustomPopupMenu(
       pressType: PressType.singleClick,
       controller: popupMenuController,
+      barrierColor: Colors.transparent,
       menuBuilder: () {
         return Container(
           decoration: BoxDecoration(
@@ -111,7 +107,11 @@ class _HomePageState extends State<HomePage> {
                             context: context,
                             builder: (BuildContext context) {
                               return AlertDialog(
+                                elevation: 0.0,
                                 contentPadding: EdgeInsets.all(15.0),
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: AppThemeData.borderRadiusSmall,
+                                ),
                                 content: recordType == RecordType.AUTH
                                     ? AuthRecordForm()
                                     : FileRecordForm(),

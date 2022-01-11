@@ -7,11 +7,11 @@ import 'package:password_manager/widgets/auth_widgets/auth_widgets.dart';
 import 'package:password_manager/widgets/auth_widgets/form_submit_btn.dart';
 import 'package:password_manager/widgets/auth_widgets/provider_auth_btn.dart';
 import 'package:password_manager/widgets/forms/form_field_widget.dart';
+import 'package:password_manager/widgets/common_widgets.dart';
 import 'package:password_manager/controllers/user_controller.dart';
 import 'package:password_manager/controllers/app_router.dart';
 import 'package:password_manager/entities/auth_status.dart';
 import 'package:password_manager/models/user.dart';
-import 'package:password_manager/utils/utils.dart';
 import 'package:password_manager/utils/enums.dart';
 
 class SignUpPage extends StatefulWidget {

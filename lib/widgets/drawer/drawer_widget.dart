@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:line_icons/line_icons.dart';
 import 'package:provider/provider.dart';
 
+import 'package:password_manager/widgets/drawer/switch_accounts.dart';
 import 'package:password_manager/controllers/app_router.dart';
 import 'package:password_manager/controllers/user_controller.dart';
 import 'package:password_manager/entities/drawer_item.dart';
@@ -28,10 +29,13 @@ class _DrawerWidgetState extends State<DrawerWidget> {
     DrawerItem(
       icon: LineIcons.userFriends,
       name: "Switch Accounts",
-      isDisabled: true,
       onTap: (context) {
-        throw UnimplementedError(
-            "Event SWITCH_ACCOUNTS has not yet been implemented");
+        showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return SwitchAccounts();
+          },
+        );
       },
     ),
     DrawerItem(

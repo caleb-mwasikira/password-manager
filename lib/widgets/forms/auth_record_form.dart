@@ -3,7 +3,7 @@ import 'package:line_icons/line_icons.dart';
 import 'package:provider/provider.dart';
 import 'package:uuid/uuid.dart';
 
-import 'package:password_manager/utils/utils.dart';
+import 'package:password_manager/widgets/common_widgets.dart';
 import 'package:password_manager/widgets/avatars/auth_record_avatar.dart';
 import 'package:password_manager/controllers/vault_records_controller.dart';
 import 'package:password_manager/controllers/app_data.dart';

@@ -18,23 +18,11 @@ class EditUserAvatar extends StatefulWidget {
   _EditUserAvatarState createState() => _EditUserAvatarState();
 }
 
-class _EditUserAvatarState extends State<EditUserAvatar>
-    with TickerProviderStateMixin {
-  late AnimationController _animationController;
-  late Animation _animation;
-
+class _EditUserAvatarState extends State<EditUserAvatar> {
   Future<List<String>>? assetImages;
 
   @override
   void initState() {
-    _animationController =
-        AnimationController(vsync: this, duration: Duration(seconds: 1));
-    _animationController.repeat(reverse: true);
-    _animation = Tween(begin: 2.0, end: 15.0).animate(_animationController)
-      ..addListener(() {
-        setState(() {});
-      });
-
     Future<List<String>> _assetImages =
         AppData.fetchAssetImages(assetDir: 'images/avatars');
     setState(() {
@@ -42,12 +30,6 @@ class _EditUserAvatarState extends State<EditUserAvatar>
     });
 
     super.initState();
-  }
-
-  @override
-  void dispose() {
-    _animationController.dispose();
-    super.dispose();
   }
 
   @override
@@ -72,7 +54,6 @@ class _EditUserAvatarState extends State<EditUserAvatar>
                   shape: BoxShape.circle,
                   border: Border.all(
                     color: Colors.transparent,
-                    width: _animation.value,
                   ),
                 ),
                 clipBehavior: Clip.hardEdge,

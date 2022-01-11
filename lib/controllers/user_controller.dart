@@ -5,6 +5,7 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:password_manager/controllers/app_router.dart';
 import 'package:password_manager/models/user.dart';
 import 'package:password_manager/entities/auth_status.dart';
+import 'package:password_manager/screens/auth/login_page.dart';
 
 class UserController extends ChangeNotifier {
   final Box<User> usersBox;
@@ -48,23 +49,35 @@ class UserController extends ChangeNotifier {
     return AuthStatus(ok: true, message: "User created successfully");
   }
 
-  AuthStatus logoutUser(BuildContext context) {
-    Navigator.pushReplacementNamed(context, AppRouter.LOGIN_PAGE);
+  void logoutUser(BuildContext context) {
+    Navigator.pushNamedAndRemoveUntil(
+        context, AppRouter.LOGIN_PAGE, (route) => false);
 
     Future.delayed(Duration(milliseconds: 1000), () {
       currentlyLoggedInUser = null;
     });
 
     notifyListeners();
-    return AuthStatus(ok: true, message: "Logout successful");
   }
 
-  AuthStatus updateLoggedInUser(User updatedUser) {
+  void switchUser(BuildContext context, {required String email}) {
+    Navigator.of(context).pushAndRemoveUntil(
+      MaterialPageRoute(
+        builder: (context) => LoginPage(email: email),
+      ),
+      (route) => false,
+    );
+
+    Future.delayed(Duration(milliseconds: 1000), () {
+      currentlyLoggedInUser = null;
+    });
+
+    notifyListeners();
+  }
+
+  void updateLoggedInUser(User updatedUser) {
     usersBox.put(updatedUser.id, updatedUser);
     currentlyLoggedInUser = updatedUser;
     notifyListeners();
-
-    return AuthStatus(
-        ok: true, message: "Successfully updated user ${updatedUser.email}");
   }
 }

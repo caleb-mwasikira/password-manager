@@ -6,18 +6,18 @@ import 'package:uuid/uuid.dart';
 import 'package:password_manager/widgets/auth_widgets/auth_widgets.dart';
 import 'package:password_manager/widgets/auth_widgets/form_submit_btn.dart';
 import 'package:password_manager/widgets/auth_widgets/provider_auth_btn.dart';
+import 'package:password_manager/widgets/common_widgets.dart';
 import 'package:password_manager/widgets/forms/form_field_widget.dart';
 import 'package:password_manager/controllers/user_controller.dart';
 import 'package:password_manager/controllers/app_router.dart';
 import 'package:password_manager/entities/auth_status.dart';
-import 'package:password_manager/utils/utils.dart';
 import 'package:password_manager/utils/enums.dart';
 import 'package:password_manager/models/user.dart';
 
 class LoginPage extends StatefulWidget {
-  const LoginPage({
-    Key? key,
-  }) : super(key: key);
+  final String? email;
+
+  const LoginPage({Key? key, this.email}) : super(key: key);
 
   @override
   _LoginPageState createState() => _LoginPageState();
@@ -104,6 +104,8 @@ class _LoginPageState extends State<LoginPage> {
                               FormFieldWidget(
                                 name: "email",
                                 hintText: "mail@website.com",
+                                initialText: widget.email ?? "",
+                                readOnly: widget.email != null,
                                 prefixIcon: LineIcons.envelope,
                                 textInputType: InputType.EMAIL,
                                 onSaved: (String? value) {

@@ -31,31 +31,24 @@ class _UserProfileState extends State<UserProfile> {
           imgUrl: widget.user?.profilePic,
           radius: 30.0,
           isEditable: widget.isEditable,
-          foregroundColor: color,
         ),
-        Container(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: widget.axis == Axis.horizontal
-                ? CrossAxisAlignment.end
-                : CrossAxisAlignment.center,
-            children: <Widget>[
-              Text(
-                widget.user?.username ?? "",
-                style: Theme.of(context)
-                    .textTheme
-                    .headline2
-                    ?.copyWith(color: color),
-              ),
-              Text(
-                widget.user?.email ?? "",
-                style: Theme.of(context)
-                    .textTheme
-                    .bodyText1
-                    ?.copyWith(color: color),
-              ),
-            ],
-          ),
+        Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: widget.axis == Axis.horizontal
+              ? CrossAxisAlignment.end
+              : CrossAxisAlignment.center,
+          children: <Widget>[
+            Text(
+              widget.user?.username ?? "",
+              style:
+                  Theme.of(context).textTheme.headline2?.copyWith(color: color),
+            ),
+            Text(
+              widget.user?.email ?? "",
+              style:
+                  Theme.of(context).textTheme.bodyText1?.copyWith(color: color),
+            ),
+          ],
         ),
       ];
 
@@ -64,7 +57,7 @@ class _UserProfileState extends State<UserProfile> {
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 15.0, vertical: 10.0),
       decoration: BoxDecoration(
-        color: widget.isSelected ? Colors.lightBlueAccent : Colors.white,
+        color: widget.isSelected ? Colors.lightBlue : Colors.white,
         borderRadius: AppThemeData.borderRadiusSmall,
       ),
       child: widget.axis == Axis.horizontal
@@ -75,11 +68,9 @@ class _UserProfileState extends State<UserProfile> {
                 children: userProfileChildren,
               ),
             )
-          : IntrinsicWidth(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: userProfileChildren,
-              ),
+          : Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: userProfileChildren,
             ),
     );
   }

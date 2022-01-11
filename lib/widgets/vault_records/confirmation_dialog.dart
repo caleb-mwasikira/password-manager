@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:password_manager/themes/app_theme_data.dart';
+import 'package:password_manager/widgets/common_widgets.dart';
 
 class ConfirmationDialog extends StatefulWidget {
   final String title;
@@ -66,6 +67,8 @@ class _ConfirmationDialogState extends State<ConfirmationDialog> {
                         widget.onAccept();
                         Navigator.of(context).pop();
                       },
+                      backgroundColor: Colors.redAccent,
+                      textColor: Colors.white,
                     ),
                     dialogBtn(
                       context: context,
@@ -79,32 +82,7 @@ class _ConfirmationDialogState extends State<ConfirmationDialog> {
               ],
             ),
           ),
-
-          // Close Button
-          Align(
-            alignment: Alignment.topRight,
-            child: Container(
-              width: 20.0,
-              height: 20.0,
-              margin: EdgeInsets.all(5.0),
-              decoration: BoxDecoration(
-                color: Colors.redAccent,
-                borderRadius: AppThemeData.borderRadiusLarge,
-              ),
-              child: IconButton(
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
-                padding: EdgeInsets.zero,
-                splashRadius: 20.0,
-                iconSize: AppThemeData.iconSizeSmall,
-                icon: Icon(
-                  Icons.close,
-                  color: Colors.white,
-                ),
-              ),
-            ),
-          ),
+          closeButton(context),
         ],
       ),
     );

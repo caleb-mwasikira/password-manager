@@ -8,10 +8,11 @@ import 'package:password_manager/themes/app_theme_data.dart';
 // ignore: must_be_immutable
 class UserAvatar extends StatefulWidget {
   String? imgUrl;
+
   final double radius;
   final bool isEditable;
   final BoxShape shape;
-  final Color foregroundColor;
+  final Color color;
 
   UserAvatar({
     Key? key,
@@ -19,7 +20,7 @@ class UserAvatar extends StatefulWidget {
     this.radius = 20.0,
     this.isEditable = false,
     this.shape = BoxShape.circle,
-    this.foregroundColor = AppThemeData.textColor,
+    this.color = AppThemeData.textColor,
   }) : super(key: key);
 
   @override
@@ -54,7 +55,7 @@ class _UserAvatarState extends State<UserAvatar> {
                     )
               : Icon(
                   LineIcons.user,
-                  color: widget.foregroundColor,
+                  color: widget.color,
                   size: widget.radius * 2,
                 ),
           widget.isEditable

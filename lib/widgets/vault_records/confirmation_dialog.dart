@@ -5,11 +5,15 @@ import 'package:password_manager/widgets/common_widgets.dart';
 
 class ConfirmationDialog extends StatefulWidget {
   final String title;
+  final String? subTitle;
+  final Icon? icon;
   final void Function() onAccept;
 
   const ConfirmationDialog({
     Key? key,
     required this.title,
+    this.subTitle,
+    this.icon,
     required this.onAccept,
   }) : super(key: key);
 
@@ -31,16 +35,15 @@ class _ConfirmationDialogState extends State<ConfirmationDialog> {
         children: [
           Center(
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Icon(
-                  Icons.warning_rounded,
-                  size: AppThemeData.iconSizeLarge * 2,
-                  color: Colors.redAccent,
-                ),
+                // [ConfimationDialog] icon
+                widget.icon ?? SizedBox.shrink(),
+
+                // [ConfimationDialog] title and subTitle
                 Container(
-                  margin: EdgeInsets.symmetric(vertical: 20.0),
+                  margin: EdgeInsets.symmetric(vertical: 5.0),
                   child: Column(
                     children: [
                       Container(
@@ -51,31 +54,30 @@ class _ConfirmationDialogState extends State<ConfirmationDialog> {
                         ),
                       ),
                       Text(
-                        "This action cannot be undone",
+                        widget.subTitle ?? "This action cannot be undone",
                         style: Theme.of(context).textTheme.bodyText1,
                       ),
                     ],
                   ),
                 ),
+
+                // [ConfirmationDialog] accept and decline buttons
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    dialogBtn(
-                      context: context,
-                      title: "Yes",
-                      onPressed: () {
-                        widget.onAccept();
-                        Navigator.of(context).pop();
-                      },
-                      backgroundColor: Colors.redAccent,
-                      textColor: Colors.white,
-                    ),
-                    dialogBtn(
-                      context: context,
+                    customButton(
+                      context,
                       title: "Cancel",
                       onPressed: () {
                         Navigator.of(context).pop();
                       },
+                    ),
+                    customButton(
+                      context,
+                      title: "Confirm",
+                      onPressed: widget.onAccept,
+                      backgroundColor: Colors.blueAccent,
+                      textColor: Colors.white,
                     ),
                   ],
                 )
@@ -84,39 +86,6 @@ class _ConfirmationDialogState extends State<ConfirmationDialog> {
           ),
           closeButton(context),
         ],
-      ),
-    );
-  }
-
-  Container dialogBtn({
-    required BuildContext context,
-    required String title,
-    required void Function()? onPressed,
-    Color? backgroundColor,
-    Color? textColor,
-  }) {
-    return Container(
-      margin: EdgeInsets.symmetric(horizontal: 20.0),
-      child: ElevatedButton(
-        onPressed: onPressed,
-        style: ButtonStyle(
-          backgroundColor: MaterialStateProperty.all<Color>(
-            backgroundColor ?? Colors.white,
-          ),
-          fixedSize: MaterialStateProperty.all<Size>(
-            Size(100.0, 40.0),
-          ),
-          shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-            RoundedRectangleBorder(
-              borderRadius: AppThemeData.borderRadiusSmall,
-            ),
-          ),
-        ),
-        child: Text(
-          title,
-          style:
-              Theme.of(context).textTheme.headline3?.copyWith(color: textColor),
-        ),
       ),
     );
   }

@@ -8,15 +8,17 @@ class UserProfile extends StatefulWidget {
   final User? user;
 
   final bool isEditable;
-  final Axis axis;
   final bool isSelected;
+  final Axis axis;
+  final MainAxisAlignment mainAxisAlignment;
 
   UserProfile({
     Key? key,
     required this.user,
     this.isEditable = false,
-    this.axis = Axis.horizontal,
     this.isSelected = false,
+    this.axis = Axis.horizontal,
+    this.mainAxisAlignment = MainAxisAlignment.spaceAround,
   }) : super(key: key);
 
   @override
@@ -32,10 +34,11 @@ class _UserProfileState extends State<UserProfile> {
           radius: 30.0,
           isEditable: widget.isEditable,
         ),
+        SizedBox(width: 20.0),
         Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: widget.axis == Axis.horizontal
-              ? CrossAxisAlignment.end
+              ? CrossAxisAlignment.start
               : CrossAxisAlignment.center,
           children: <Widget>[
             Text(
@@ -63,7 +66,7 @@ class _UserProfileState extends State<UserProfile> {
       child: widget.axis == Axis.horizontal
           ? IntrinsicHeight(
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                mainAxisAlignment: widget.mainAxisAlignment,
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: userProfileChildren,
               ),

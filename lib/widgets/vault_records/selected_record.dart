@@ -4,12 +4,13 @@ import 'package:provider/provider.dart';
 
 import 'package:password_manager/utils/utils.dart';
 import 'package:password_manager/widgets/vault_records/confirmation_dialog.dart';
-import 'package:password_manager/widgets/vault_records/record_detail.dart';
+import 'package:password_manager/widgets/record_detail.dart';
 import 'package:password_manager/themes/app_theme_data.dart';
 import 'package:password_manager/widgets/action_button.dart';
 import 'package:password_manager/controllers/vault_records_controller.dart';
 import 'package:password_manager/models/auth_record.dart';
 import 'package:password_manager/widgets/vault_records/auth_record_widget.dart';
+import 'package:password_manager/widgets/result.dart';
 
 class SelectedRecord extends StatefulWidget {
   const SelectedRecord({Key? key}) : super(key: key);
@@ -34,11 +35,10 @@ class _SelectedRecordState extends State<SelectedRecord> {
             margin: EdgeInsets.all(10.0),
             child: Center(
               child: selectedRecord == null
-                  // ? Result(
-                  //     imgUrl: "assets/images/display_art/no_data_found.png",
-                  //     message: "No currently selected record",
-                  //   )
-                  ? SizedBox()
+                  ? Result(
+                      imgUrl: "assets/images/display_art/no_data_found.png",
+                      message: "",
+                    )
                   : Column(
                       children: [
                         Expanded(
@@ -97,6 +97,8 @@ class _SelectedRecordState extends State<SelectedRecord> {
                                                           .deleteRecord(
                                                               selectedRecord
                                                                   .id);
+                                                      Navigator.of(context)
+                                                          .pop();
                                                     },
                                                   ),
                                                 );
@@ -175,6 +177,37 @@ class _SelectedRecordState extends State<SelectedRecord> {
           );
         },
       ),
+    );
+  }
+
+  void deleteRecord(
+    BuildContext context, {
+    required VaultRecordsController vaultRecordsController,
+    required AuthRecord record,
+  }) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          elevation: 0.0,
+          backgroundColor: Colors.transparent,
+          shape: RoundedRectangleBorder(
+            borderRadius: AppThemeData.borderRadiusSmall,
+          ),
+          content: ConfirmationDialog(
+            title: "Delete this login?",
+            icon: Icon(
+              Icons.warning_outlined,
+              color: Colors.redAccent,
+              size: AppThemeData.iconSizeLarge,
+            ),
+            onAccept: () {
+              vaultRecordsController.deleteRecord(record.id);
+              Navigator.of(context).pop();
+            },
+          ),
+        );
+      },
     );
   }
 }

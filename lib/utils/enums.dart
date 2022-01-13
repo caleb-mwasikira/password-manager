@@ -23,8 +23,3 @@ enum InputType {
   PASSWORD,
   URL,
 }
-
-enum FormType {
-  SIGNUP_FORM,
-  LOGIN_FORM,
-}

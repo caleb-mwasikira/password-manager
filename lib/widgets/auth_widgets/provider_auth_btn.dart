@@ -4,17 +4,15 @@ import 'package:password_manager/themes/app_theme_data.dart';
 
 class ProviderAuthBtn extends StatefulWidget {
   final String title;
-  final IconData icon;
+  final String imgUrl;
   final void Function() onPressed;
-  final Color? color;
   final double width;
 
   const ProviderAuthBtn({
     Key? key,
     required this.title,
-    required this.icon,
+    required this.imgUrl,
     required this.onPressed,
-    this.color,
     this.width = 250.0,
   }) : super(key: key);
 
@@ -49,10 +47,14 @@ class _ProviderAuthBtnState extends State<ProviderAuthBtn> {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              Icon(
-                widget.icon,
-                size: AppThemeData.iconSizeMedium,
-                color: onHover ? AppThemeData.whiteColor : widget.color,
+              Container(
+                width: 20.0,
+                height: 20.0,
+                child: Image.asset(
+                  widget.imgUrl,
+                  fit: BoxFit.contain,
+                  filterQuality: FilterQuality.high,
+                ),
               ),
               SizedBox(width: 20.0),
               Text(

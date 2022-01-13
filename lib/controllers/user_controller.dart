@@ -80,4 +80,11 @@ class UserController extends ChangeNotifier {
     currentlyLoggedInUser = updatedUser;
     notifyListeners();
   }
+
+  void deleteUserAccount({required BuildContext context, required User user}) {
+    // To delete a users account, we need to have them first logged out.
+    this.logoutUser(context);
+
+    usersBox.delete(user.id);
+  }
 }

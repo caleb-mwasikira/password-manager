@@ -112,7 +112,7 @@ class _FileRecordWidgetState extends State<FileRecordWidget> {
                         child: CircularProgressIndicator(
                           color: widget.isSelected
                               ? Colors.white
-                              : AppThemeData.primaryColorDark,
+                              : AppThemeData.primaryColor,
                           strokeWidth: 1.0,
                         ),
                       )

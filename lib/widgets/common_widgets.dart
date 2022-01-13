@@ -65,3 +65,38 @@ Widget closeButton(BuildContext context) {
     ),
   );
 }
+
+Widget customButton(
+  BuildContext context, {
+  required String title,
+  required void Function() onPressed,
+  Color? backgroundColor,
+  Color? textColor,
+}) {
+  return Container(
+    margin: EdgeInsets.symmetric(horizontal: 20.0),
+    child: ElevatedButton(
+      onPressed: onPressed,
+      style: ButtonStyle(
+        backgroundColor: MaterialStateProperty.all<Color>(
+          backgroundColor ?? AppThemeData.scaffoldBackgroundColor,
+        ),
+        fixedSize: MaterialStateProperty.all<Size>(
+          Size(100.0, 40.0),
+        ),
+        shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+          RoundedRectangleBorder(
+            borderRadius: AppThemeData.borderRadiusSmall,
+          ),
+        ),
+      ),
+      child: Text(
+        title,
+        style: Theme.of(context)
+            .textTheme
+            .headline3
+            ?.copyWith(color: textColor ?? AppThemeData.textColor),
+      ),
+    ),
+  );
+}

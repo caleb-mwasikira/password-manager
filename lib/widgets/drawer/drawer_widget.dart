@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:line_icons/line_icons.dart';
 import 'package:provider/provider.dart';
 
-import 'package:password_manager/widgets/drawer/switch_accounts.dart';
+import 'package:password_manager/widgets/switch_accounts.dart';
 import 'package:password_manager/controllers/app_router.dart';
 import 'package:password_manager/controllers/user_controller.dart';
 import 'package:password_manager/entities/drawer_item.dart';
@@ -23,7 +23,7 @@ class _DrawerWidgetState extends State<DrawerWidget> {
       icon: LineIcons.home,
       name: "Home",
       onTap: (context) {
-        Navigator.pushNamed(context, AppRouter.HOME_PAGE);
+        Navigator.of(context).pop();
       },
     ),
     DrawerItem(
@@ -59,9 +59,9 @@ class _DrawerWidgetState extends State<DrawerWidget> {
     DrawerItem(
       icon: LineIcons.cog,
       name: "Settings",
-      isDisabled: true,
       onTap: (context) {
-        throw UnimplementedError("Route SETTINGS has not yet been implemented");
+        // Navigate user to the SETTINGS page.
+        Navigator.pushNamed(context, AppRouter.SETTINGS_PAGE);
       },
     ),
     DrawerItem(

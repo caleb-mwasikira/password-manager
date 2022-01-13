@@ -58,10 +58,9 @@ class _SignUpPageState extends State<SignUpPage> {
                             children: [
                               ProviderAuthBtn(
                                 title: "SignUp with Google",
-                                icon: LineIcons.googleLogo,
-                                color: Color(0XFF0F9D58),
+                                imgUrl: "assets/images/icons/google_icon.png",
                                 onPressed: () {
-                                  print('SignUp with google btn was clicked');
+                                  print('SignUp with Google btn was clicked');
 
                                   // TODO: Imlement registration with Google feature.
                                 },
@@ -102,7 +101,7 @@ class _SignUpPageState extends State<SignUpPage> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               FormFieldWidget(
-                                name: "username",
+                                name: "Username",
                                 hintText: "john doe",
                                 prefixIcon: LineIcons.userCircle,
                                 textInputType: InputType.TEXT,
@@ -112,7 +111,7 @@ class _SignUpPageState extends State<SignUpPage> {
                                 },
                               ),
                               FormFieldWidget(
-                                name: "email",
+                                name: "Email",
                                 hintText: "mail@website.com",
                                 prefixIcon: LineIcons.envelope,
                                 textInputType: InputType.EMAIL,
@@ -121,7 +120,7 @@ class _SignUpPageState extends State<SignUpPage> {
                                 },
                               ),
                               FormFieldWidget(
-                                name: "password",
+                                name: "Password",
                                 hintText: "Min 8 characters",
                                 prefixIcon: LineIcons.lock,
                                 obscureText: true,
@@ -130,13 +129,16 @@ class _SignUpPageState extends State<SignUpPage> {
                                   password = value ?? "";
                                 },
                               ),
-                              altAuthenticationQst(
-                                title: "Already have an account? Login",
-                                onPressed: () {
-                                  Navigator.of(context).pushReplacementNamed(
-                                      AppRouter.LOGIN_PAGE);
-                                },
-                                context: context,
+                              Container(
+                                margin: EdgeInsets.symmetric(vertical: 10.0),
+                                child: altAuthenticationQst(
+                                  title: "Already have an account? Login",
+                                  onPressed: () {
+                                    Navigator.of(context).pushReplacementNamed(
+                                        AppRouter.LOGIN_PAGE);
+                                  },
+                                  context: context,
+                                ),
                               ),
                             ],
                           ),

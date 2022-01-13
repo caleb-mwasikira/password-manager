@@ -16,11 +16,10 @@ class AppThemeData {
   static const double iconSizeSmall = 15.0;
 
   static const Color primaryColor = Color(0XFF15ACA2);
-  static const Color primaryColorDark = Color(0XFF048C7F);
   static const Color textColor = Color(0XFF324047);
   static const Color whiteColor = Color(0XFFFFFFFF);
   static const Color shadowColor = Color(0XFFF6F6F6);
-  static const Color secondaryScaffoldBackgroundColor = Color(0XFFF8F7FC);
+  static const Color scaffoldBackgroundColor = Color(0XFFF5F5F5);
 
   static List<Color> colors = [
     Colors.lightBlueAccent,
@@ -40,19 +39,18 @@ class AppThemeData {
     return ThemeData(
       fontFamily: "Roboto_Mono",
       primaryColor: primaryColor,
-      primaryColorDark: primaryColorDark,
       shadowColor: Colors.grey,
       scaffoldBackgroundColor: whiteColor,
       textTheme: TextTheme(
         headline1: TextStyle(
           color: textColor,
-          fontSize: 24.0,
+          fontSize: 20.0,
           fontFamily: "Roboto_Mono",
           fontWeight: FontWeight.w400,
         ),
         headline2: TextStyle(
           color: textColor,
-          fontSize: 18.0,
+          fontSize: 16.0,
           fontFamily: "Roboto_Mono",
           fontWeight: FontWeight.w400,
         ),

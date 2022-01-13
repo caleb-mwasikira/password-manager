@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:password_manager/screens/settings_page.dart';
 import 'package:provider/provider.dart';
 import 'package:window_size/window_size.dart';
 import 'package:hive_flutter/hive_flutter.dart';
@@ -75,6 +76,7 @@ class _MyAppState extends State<MyApp> {
         AppRouter.HOME_PAGE: (BuildContext context) => HomePage(),
         AppRouter.SIGNUP_PAGE: (BuildContext context) => SignUpPage(),
         AppRouter.LOGIN_PAGE: (BuildContext context) => LoginPage(),
+        AppRouter.SETTINGS_PAGE: (BuildContext context) => SettingsPage(),
       },
     );
   }

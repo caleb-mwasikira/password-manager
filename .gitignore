@@ -1,3 +1,6 @@
+#
+.tokens
+
 # Miscellaneous
 *.class
 *.lock
